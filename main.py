@@ -132,8 +132,7 @@ async def rename_handler(bot: Client, event: Message):
     media = event.video or event.audio or event.document
     if media and media.file_name:
         reply_ = await event.reply_text(
-            text=f"**Enter a New File Name for this File 📂\n\nNote: Extension not Required**",
-            reply_markup=ForceReply(True), 
+            text=f"**👀 Enter a New File Name for this File 📂\nNote: `Extension not Required`**",
             quote=True
         )
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
