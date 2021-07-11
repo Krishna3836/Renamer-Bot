@@ -46,11 +46,18 @@ Check Below Buttons for more :**
 """
 
     HELP_TEXT = """**Hello {}, It's too easy to use me..**
-   
-**☞︎︎︎ Send a photo to set it as your custom thumbnail.**
-**☞︎︎︎ Then Send any File you want to rename.**
-**☞︎︎︎ A message will be appeared after your file, reply to it and send the new file name.**
-**☞︎︎︎ That's it, and rest is mine work**
+ 
+● Configure the Settings before using me... 
+● Send a photo to set it as your custom thumbnail...
+● Send any File or media you want to rename... 
+● That's it, and rest is mine work...
 
-**© By @AVBotz ❤️**
+❕Available Commands... 
+- /start - Start the Bot
+- /help - This Message
+- /about - About Meh
+- /settings - Configure Settings 
+- /showthumb & /deletethumb - For Thumbnail
+
+© By @AVBotz ❤️**
 """
