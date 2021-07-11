@@ -24,14 +24,14 @@ async def ForceSub(bot: Client, event: Message):
         fix_ = await ForceSub(bot, event)
         return fix_
     except Exception as err:
-        print(f"Unable to do Force Subscribe to {Config.UPDATES_CHANNEL}\n\nError: {err}\n\nContact Support Group: https://t.me/DevsZone")
+        print(f"**Unable to do Force Subscribe to {Config.UPDATES_CHANNEL}\n\nError: {err}, Contact us [Here](https://t.me/AVBotz_Support)**")
         return 200
     try:
         user = await bot.get_chat_member(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL), user_id=event.from_user.id)
         if user.status == "kicked":
             await bot.send_message(
                 chat_id=event.from_user.id,
-                text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/DevsZone).",
+                text="**Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/AVBotz_Support)**",
                 parse_mode="markdown",
                 disable_web_page_preview=True,
                 reply_to_message_id=event.message_id
@@ -42,11 +42,11 @@ async def ForceSub(bot: Client, event: Message):
     except UserNotParticipant:
         await bot.send_message(
             chat_id=event.from_user.id,
-            text="**Please Join My Updates Channel to use this Bot!**\n\nDue to Overload, Only Channel Subscribers can use the Bot!",
+            text="**👀 Please Join My Updates Channel to use this Bot!**\n__Hit /start once you joined..!__",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🤖 Join Updates Channel", url=invite_link.invite_link)
+                        InlineKeyboardButton("📢 Join Updates Channel", url=invite_link.invite_link)
                     ]
                 ]
             ),
@@ -59,5 +59,5 @@ async def ForceSub(bot: Client, event: Message):
         fix_ = await ForceSub(bot, event)
         return fix_
     except Exception as err:
-        print(f"Something Went Wrong! Unable to do Force Subscribe.\nError: {err}\n\nContact Support Group: https://t.me/DevsZone")
+        print(f"**Something Went Wrong! Unable to do Force Subscribe.\nError: {err}, Contact us [Here](https://t.me/AVBotz_Support)*f")
         return 200
