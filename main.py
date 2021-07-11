@@ -62,18 +62,18 @@ async def start_handler(bot: Client, event: Message, cb=False):
     if FSub == 400:
         return
     if not cb:
-                send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
-            await send_msg.edit(
-              text=f"{Config.START_TEXT}".format(event.from_user.mention), 
-              reply_markup=START_BUTTONS, 
-              disable_web_page_preview=True
-                )
-            if cb:
-                return await event.message.edit(
-                          text=f"{Config.START_TEXT}".format(event.from_user.mention),
-                          reply_markup=START_BUTTONS,
-                          disable_web_page_preview=True
-                           )
+        send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
+    await send_msg.edit(
+      text=f"{Config.START_TEXT}".format(event.from_user.mention), 
+      reply_markup=START_BUTTONS, 
+      disable_web_page_preview=True
+       )
+    if cb:
+        return await event.message.edit(
+                 text=f"{Config.START_TEXT}".format(event.from_user.mention),
+                 reply_markup=START_BUTTONS,
+                 disable_web_page_preview=True
+                     )
             
 @RenameBot.on_message(filters.private & filters.command("help"))
 async def start_handler(bot: Client, event: Message, cb=False):
@@ -82,18 +82,18 @@ async def start_handler(bot: Client, event: Message, cb=False):
     if FSub == 400:
         return
     if not cb:
-                send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
-            await send_msg.edit(
-              text=f"{Config.HELP_TEXT}".format(event.from_user.mention), 
-              reply_markup=HELP_BUTTONS, 
-              disable_web_page_preview=True
-                )
-            if cb:
-                return await event.message.edit(
-                          text=f"{Config.HELP_TEXT}".format(event.from_user.mention),
-                          reply_markup=HELP_BUTTONS,
-                          disable_web_page_preview=True
-                           )
+        send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
+    await send_msg.edit(
+      text=f"{Config.HELP_TEXT}".format(event.from_user.mention), 
+      reply_markup=HELP_BUTTONS, 
+      disable_web_page_preview=True
+       )
+    if cb:
+        return await event.message.edit(
+                 text=f"{Config.HELP_TEXT}".format(event.from_user.mention),
+                 reply_markup=HELP_BUTTONS,
+                 disable_web_page_preview=True
+                     )
             
 @RenameBot.on_message(filters.private & filters.command("about"))
 async def start_handler(bot: Client, event: Message, cb=False):
@@ -102,18 +102,18 @@ async def start_handler(bot: Client, event: Message, cb=False):
     if FSub == 400:
         return
     if not cb:
-                send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
-            await send_msg.edit(
-              text=f"{Config.ABOUT_TEXT}", 
-              reply_markup=ABOUT_BUTTONS, 
-              disable_web_page_preview=True
-                )
-            if cb:
-                return await event.message.edit(
-                          text=f"{Config.ABOUT_TEXT}",
-                          reply_markup=ABOUT_BUTTONS,
-                          disable_web_page_preview=True
-                           )
+        send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
+    await send_msg.edit(
+      text=f"{Config.ABOUT_TEXT}", 
+      reply_markup=ABOUT_BUTTONS, 
+      disable_web_page_preview=True
+       )
+    if cb:
+        return await event.message.edit(
+                 text=f"{Config.ABOUT_TEXT}",
+                 reply_markup=ABOUT_BUTTONS,
+                 disable_web_page_preview=True
+                     )
 
 
 @RenameBot.on_message(filters.private & (filters.video | filters.document | filters.audio))
