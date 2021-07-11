@@ -302,8 +302,21 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         await cb.message.delete(True)
     elif "close" in cb.data:
         await cb.message.delete(True)
+    elif "help" in cb.data:
+        await cb.edit_message_text(
+              text = {Config.HELP_TEXT},
+              disable_web_page_preview = True,
+              reply_markup = HELP_BUTTONS)
     elif "home" in cb.data:
-        await 
+        await cb.edit_message_text(
+              text = {Config.START_TEXT},
+              disable_web_page_preview = True,
+              reply_markup = START_BUTTONS)
+    elif "about" in cb.data:
+        await cb.edit_message_text(
+              text = {Config.ABOUT_TEXT},
+              disable_web_page_preview = True,
+              reply_markup = ABOUT_BUTTONS)
     elif "openSettings" in cb.data:
         await OpenSettings(cb.message, user_id=cb.from_user.id)
     elif "triggerUploadMode" in cb.data:
