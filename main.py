@@ -10,7 +10,7 @@ from pyromod import listen
 from pyrogram import Client, filters
 from asyncio import TimeoutError
 from pyrogram.errors import MessageNotModified
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery, ForceReply
 
 from configs import Config
 from helpers.settings import OpenSettings
@@ -132,7 +132,8 @@ async def rename_handler(bot: Client, event: Message):
     media = event.video or event.audio or event.document
     if media and media.file_name:
         reply_ = await event.reply_text(
-            text=f"**Enter a New File Name for this File 📂\nNote: Extension not Required**",
+            text=f"**Enter a New File Name for this File 📂\n\nNote: Extension not Required**",
+            reply_markup=ForceReply(True), 
             quote=True
         )
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
