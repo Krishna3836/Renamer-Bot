@@ -42,7 +42,7 @@ async def UploadFile(bot: Client, message: Message, file_path: str, file_size):
             ),
             force_document=True,
             thumb=file_thumbnail,
-            caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n" + {Config.Caption}) if (caption_ is None) else caption_),
+            caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n" + {Config.CAPTION}) if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
@@ -141,7 +141,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             thumb=video_thumbnail,
             width=width,
             height=height,
-            caption=((f"**{file_path.rsplit('/', 1)[-1]}\n\n**" + {Config.Caption}) if (caption_ is None) else caption_),
+            caption=((f"**{file_path.rsplit('/', 1)[-1]}\n\n**" + {Config.CAPTION}) if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
@@ -196,7 +196,7 @@ async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, 
             duration=(duration if (duration is not None) else 0),
             performer=(performer if (performer is not None) else "Animesh"),
             title=(title if (title is not None) else file_path.rsplit('/', 1)[-1].rsplit(".", 1)[0]),
-            caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n" + {Config.Caption}) if (caption_ is None) else caption_),
+            caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n" + {Config.CAPTION}) if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
