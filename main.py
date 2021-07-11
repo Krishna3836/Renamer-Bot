@@ -38,13 +38,48 @@ async def start_handler(bot: Client, event: Message):
     if FSub == 400:
         return
     await event.reply_text(
-        text=f"Hi, {event.from_user.mention}\n{Config.START_TEXT}",
+        text=f"{Config.START_TEXT}.format(event.from_user.mention)",
         quote=True,
         reply_markup=InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
-                 InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")],
-                [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")]
+                [InlineKeyboardButton("👀 Configure Settings ⚙️", callback_data="openSettings")],
+                [InlineKeyboardButton("ℹ️ Help", callback_data="help"),
+                 InlineKeyboardButton("🤖 About", callback_data="about"),
+                 InlineKeyboardButton("⛔ Close", callback_data="close")]
+            ]
+        )
+    )
+@RenameBot.on_message(filters.private & filters.command("help"))
+async def start_handler(bot: Client, event: Message):
+    await AddUserToDatabase(bot, event)
+    FSub = await ForceSub(bot, event)
+    if FSub == 400:
+        return
+    await event.reply_text(
+        text=f"{Config.HELP_TEXT}.format(event.from_user.mention)",
+        quote=True,
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("🏡 Home", callback_data="home"),
+                 InlineKeyboardButton("🤖 About", callback_data="about"),
+                 InlineKeyboardButton("⛔ Close", callback_data="close")]
+            ]
+        )
+    )
+@RenameBot.on_message(filters.private & filters.command("about"))
+async def start_handler(bot: Client, event: Message):
+    await AddUserToDatabase(bot, event)
+    FSub = await ForceSub(bot, event)
+    if FSub == 400:
+        return
+    await event.reply_text(
+        text=f"{Config.ABOUT_TEXT}",
+        quote=True,
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("📮 Feedback DeV", url="https://t.me/Animesh941")],
+                [InlineKeyboardButton("🏡 Home", callback_data="home"),
+                 InlineKeyboardButton("⛔ Close", callback_data="close")]
             ]
         )
     )
@@ -66,7 +101,7 @@ async def rename_handler(bot: Client, event: Message):
     media = event.video or event.audio or event.document
     if media and media.file_name:
         reply_ = await event.reply_text(
-            text=f"**Enter a New File Name for this File 📂**",
+            text=f"**Enter a New File Name for this File 📂\nNote: Extension not Required**",
             quote=True
         )
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
