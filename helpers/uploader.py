@@ -36,34 +36,32 @@ async def UploadFile(bot: Client, message: Message, file_path: str, file_size):
             document=file_path,
             progress=progress_for_pyrogram,
             progress_args=(
-                "Uploading File ...",
+                "**📤 Uploading File...**",
                 message,
                 c_time
             ),
             force_document=True,
             thumb=file_thumbnail,
-            caption=((Config.CAPTION.format((await bot.get_me()).username) + f"\n\n**File Name:** `{file_path.rsplit('/', 1)[-1]}`\n**File Size:** `{humanbytes(file_size)}`") if (caption_ is None) else caption_),
+            caption=((Config.CAPTION.format((await bot.get_me()).username) + f"\n\n**File Name: {file_path.rsplit('/', 1)[-1]}**") if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")],
-                    [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
-                     InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")]
+                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
                 ]
             )
         )
         await asyncio.sleep(Config.SLEEP_TIME)
         forward_ = await sent_.forward(chat_id=Config.LOG_CHANNEL)
         await forward_.reply_text(
-            text=f"**User:** [{message.chat.first_name}](tg://user?id={str(message.chat.id)})\n**Username:** `{message.chat.username}`\n**UserID:** `{message.chat.id}`",
+            text=f"**User: [{message.chat.first_name}](tg://user?id={str(message.chat.id)})**\n**Username: {message.chat.username}**",
             disable_web_page_preview=True,
             quote=True
         )
     except Exception as err:
         try:
-            await message.edit(f"Failed to File!\n**Error:**\n`{err}`")
+            await message.edit(f"**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
             await asyncio.sleep(50)
         except:
-            print(f"Failed to Upload File!\nError: {err}")
+            print(f"**Failed to Upload File!\nError: {err}**")
     await delete_one(file_path)
     if Config.ONE_PROCESS_ONLY:
         await CheckTimeGap(message.chat.id, rm_gap=True)
@@ -135,7 +133,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             video=file_path,
             progress=progress_for_pyrogram,
             progress_args=(
-                "Uploading Video ...",
+                "**📤 Uploading Video...**",
                 message,
                 c_time
             ),
@@ -143,28 +141,26 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             thumb=video_thumbnail,
             width=width,
             height=height,
-            caption=((Config.CAPTION.format((await bot.get_me()).username) + f"\n\n**File Name:** `{file_path.rsplit('/', 1)[-1]}`\n**File Size:** `{humanbytes(file_size)}`") if (caption_ is None) else caption_),
+            caption=((Config.CAPTION.format((await bot.get_me()).username) + f"\n\n**File Name: {file_path.rsplit('/', 1)[-1]}**") if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")],
-                    [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
-                     InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")]
+                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
                 ]
             )
         )
         await asyncio.sleep(Config.SLEEP_TIME)
         forward_ = await sent_.forward(chat_id=Config.LOG_CHANNEL)
         await forward_.reply_text(
-            text=f"**User:** [{message.chat.first_name}](tg://user?id={str(message.chat.id)})\n**Username:** `{message.chat.username}`\n**UserID:** `{message.chat.id}`",
+            text=f"**User: [{message.chat.first_name}](tg://user?id={str(message.chat.id)})\nUsername: {message.chat.username}**",
             disable_web_page_preview=True,
             quote=True
         )
     except Exception as err:
         try:
-            await message.edit(f"Failed to File!\n**Error:**\n`{err}`")
+            await message.edit(f"**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
             await asyncio.sleep(50)
         except:
-            print(f"Failed to Upload File!\nError: {err}")
+            print(f"**😐 Failed to Upload File!\nError: {err}**")
     await delete_one(file_path)
     if Config.ONE_PROCESS_ONLY:
         await CheckTimeGap(message.chat.id, rm_gap=True)
@@ -192,37 +188,35 @@ async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, 
             audio=file_path,
             progress=progress_for_pyrogram,
             progress_args=(
-                "Uploading Audio ...",
+                "**📤 Uploading Audio...**",
                 message,
                 c_time
             ),
             thumb=file_thumbnail,
             duration=(duration if (duration is not None) else 0),
-            performer=(performer if (performer is not None) else "Abir Hasan"),
+            performer=(performer if (performer is not None) else "Animesh"),
             title=(title if (title is not None) else file_path.rsplit('/', 1)[-1].rsplit(".", 1)[0]),
-            caption=((Config.CAPTION.format((await bot.get_me()).username) + f"\n\n**File Name:** `{file_path.rsplit('/', 1)[-1]}`\n**File Size:** `{humanbytes(file_size)}`") if (caption_ is None) else caption_),
+            caption=((Config.CAPTION.format((await bot.get_me()).username) + f"\n\n**File Name: {file_path.rsplit('/', 1)[-1]}**") if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")],
-                    [InlineKeyboardButton("Support Group", url="https://t.me/DevsZone"),
-                     InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")]
+                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
                 ]
             )
         )
         await asyncio.sleep(Config.SLEEP_TIME)
         forward_ = await sent_.forward(chat_id=Config.LOG_CHANNEL)
         await forward_.reply_text(
-            text=f"**User:** [{message.chat.first_name}](tg://user?id={str(message.chat.id)})\n**Username:** `{message.chat.username}`\n**UserID:** `{message.chat.id}`",
+            text=f"**User: [{message.chat.first_name}](tg://user?id={str(message.chat.id)})\nUsername: {message.chat.username}**",
             disable_web_page_preview=True,
             quote=True
         )
     except Exception as err:
         try:
-            await message.edit(f"Failed to File!\n**Error:**\n`{err}`")
+            await message.edit("**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
             await asyncio.sleep(50)
             raise err
         except:
-            print(f"Failed to Upload File!\nError: {err}")
+            print(f"**😐 Failed to Upload File!\nError: {err}**")
     await delete_one(file_path)
     if Config.ONE_PROCESS_ONLY:
         await CheckTimeGap(message.chat.id, rm_gap=True)
