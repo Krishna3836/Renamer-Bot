@@ -300,6 +300,10 @@ async def settings_handler(bot: Client, event: Message):
 async def callback_handlers(bot: Client, cb: CallbackQuery):
     if "closeMeh" in cb.data:
         await cb.message.delete(True)
+    elif "close" in cb.data:
+        await cb.message.delete(True)
+    elif "home" in cb.data:
+        await 
     elif "openSettings" in cb.data:
         await OpenSettings(cb.message, user_id=cb.from_user.id)
     elif "triggerUploadMode" in cb.data:
