@@ -335,17 +335,17 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         await cb.message.delete(True)
     elif "help" in cb.data:
         await cb.edit_message_text(
-              text = f"{Config.HELP_TEXT}",
+              text = f"{Config.HELP_TEXT}".format(cb.from_user.mention),
               disable_web_page_preview = True,
               reply_markup = HELP_BUTTONS)
     elif "home" in cb.data:
         await cb.edit_message_text(
-              text = f"{Config.START_TEXT}",
+              text = f"{Config.START_TEXT}".format(cb.from_user.mention),
               disable_web_page_preview = True,
               reply_markup = START_BUTTONS)
     elif "about" in cb.data:
         await cb.edit_message_text(
-              text = f"{Config.ABOUT_TEXT}",
+              text = f"{Config.ABOUT_TEXT}".format(cb.from_user.mention),
               disable_web_page_preview = True,
               reply_markup = ABOUT_BUTTONS)
     elif "openSettings" in cb.data:
@@ -472,7 +472,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 await cb.message.edit(
                     "**Custom Caption Removed Successfully!**",
                     reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton("⚙ Settings", callback_data="openSettings")],
+                        [InlineKeyboardButton("⚙ Back To Settings", callback_data="openSettings")],
                         [InlineKeyboardButton("⛔ Close", callback_data="closeMeh")]
                     ])
                 )
