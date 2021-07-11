@@ -58,7 +58,7 @@ async def UploadFile(bot: Client, message: Message, file_path: str, file_size):
         )
     except Exception as err:
         try:
-            await message.edit(f"**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
+            await message.edit(f"**Thanks For Using [Meh](https://t.me/AVBotz) ❤️**")
             await asyncio.sleep(50)
         except:
             print(f"**Failed to Upload File!\nError: {err}**")
@@ -157,7 +157,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
         )
     except Exception as err:
         try:
-            await message.edit(f"**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
+            await message.edit(f"**Thanks For Using [Meh](https://t.me/AVBotz) ❤️**")
             await asyncio.sleep(50)
         except:
             print(f"**😐 Failed to Upload File!\nError: {err}**")
@@ -212,7 +212,7 @@ async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, 
         )
     except Exception as err:
         try:
-            await message.edit("**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
+            await message.edit(f"**Thanks For Using [Meh](https://t.me/AVBotz) ❤️**")
             await asyncio.sleep(50)
             raise err
         except:
