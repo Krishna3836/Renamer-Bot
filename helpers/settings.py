@@ -14,7 +14,6 @@ async def OpenSettings(event: Message, user_id: int):
                 [
                     [InlineKeyboardButton(f"📤 Upload as Document {'✅' if ((await db.get_upload_as_doc(user_id)) is True) else '❌'}",
                                           callback_data="triggerUploadMode")],
-                    [InlineKeyboardButton("📝 File Name Prefix", callback_data="triggerPrefix")],
                     [InlineKeyboardButton("📸 Custom Thumbnail ", callback_data="triggerThumbnail")],
                     [InlineKeyboardButton("📮 Custom Caption ", callback_data="triggerCaption")],
                     [InlineKeyboardButton("⛔ Close Settings ⛔", callback_data="closeMeh")]
