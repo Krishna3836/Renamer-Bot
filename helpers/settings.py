@@ -9,15 +9,15 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 async def OpenSettings(event: Message, user_id: int):
     try:
         await event.edit(
-            text="Here You Can Set Your Settings:",
+            text="**__⚙ Configure my Behavior from here, to experience the best service 😉\n\n© @AVBotz ❤️__**",
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton(f"Upload as Doc {'✅' if ((await db.get_upload_as_doc(user_id)) is True) else '❌'}",
+                    [InlineKeyboardButton(f"📤 Upload as Document {'✅' if ((await db.get_upload_as_doc(user_id)) is True) else '❌'}",
                                           callback_data="triggerUploadMode")],
-                    [InlineKeyboardButton("✏️ File Name Prefix ✏️", callback_data="triggerPrefix")],
-                    [InlineKeyboardButton("🖼 Thumbnail 🖼", callback_data="triggerThumbnail")],
-                    [InlineKeyboardButton("🏷 Caption 🏷", callback_data="triggerCaption")],
-                    [InlineKeyboardButton("❎ Close ❎", callback_data="closeMeh")]
+                    [InlineKeyboardButton("📝 File Name Prefix", callback_data="triggerPrefix")],
+                    [InlineKeyboardButton("📸 Custom Thumbnail ", callback_data="triggerThumbnail")],
+                    [InlineKeyboardButton("📮 Custom Caption ", callback_data="triggerCaption")],
+                    [InlineKeyboardButton("⛔ Close Settings ⛔", callback_data="closeMeh")]
                 ]
             )
         )
