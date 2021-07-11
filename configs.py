@@ -17,13 +17,11 @@ class Config(object):
     DOWNLOAD_PATH = os.environ.get("DOWNLOAD_PATH", "./downloads")
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
-    START_TEXT = """
-I am Telegram Files Rename Bot.
-
-Send me a File to Rename.
-
-Made by @AbirHasan2005
-    """
+    START_TEXT = """**Hii {user_mention}, I'm a Simple File Renamer Bot with Permanent Thumbnail Support! 💯**
+    
+**Check Below Buttons for more :**
+**🤖 Developer : [Animesh Verma](https://t.me/Animesh941)**
+"""
     PROGRESS = """
 Percentage : {0}%
 Done: {1}
