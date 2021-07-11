@@ -30,6 +30,30 @@ RenameBot = Client(
     bot_token=Config.BOT_TOKEN
 )
 
+START_BUTTONS = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("👀 Configure Settings ⚙️", callback_data="openSettings")],
+                [InlineKeyboardButton("ℹ️ Help", callback_data="help"),
+                 InlineKeyboardButton("🤖 About", callback_data="about"),
+                 InlineKeyboardButton("⛔ Close", callback_data="close")]
+            ]
+        )
+
+HELP_BUTTONS = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("🏡 Home", callback_data="home"),
+                 InlineKeyboardButton("🤖 About", callback_data="about"),
+                 InlineKeyboardButton("⛔ Close", callback_data="close")]
+            ]
+        )
+
+ABOUT_BUTTONS = InlineKeyboardMarkup(
+            [
+                [InlineKeyboardButton("📮 Feedback DeV", url="https://t.me/Animesh941")],
+                [InlineKeyboardButton("🏡 Home", callback_data="home"),
+                 InlineKeyboardButton("⛔ Close", callback_data="close")]
+            ]
+        )
 
 @RenameBot.on_message(filters.private & filters.command("start"))
 async def start_handler(bot: Client, event: Message):
@@ -304,17 +328,17 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         await cb.message.delete(True)
     elif "help" in cb.data:
         await cb.edit_message_text(
-              text = {Config.HELP_TEXT},
+              text = f"{Config.HELP_TEXT}",
               disable_web_page_preview = True,
               reply_markup = HELP_BUTTONS)
     elif "home" in cb.data:
         await cb.edit_message_text(
-              text = {Config.START_TEXT},
+              text = f"{Config.START_TEXT}",
               disable_web_page_preview = True,
               reply_markup = START_BUTTONS)
     elif "about" in cb.data:
         await cb.edit_message_text(
-              text = {Config.ABOUT_TEXT},
+              text = f"{Config.ABOUT_TEXT}",
               disable_web_page_preview = True,
               reply_markup = ABOUT_BUTTONS)
     elif "openSettings" in cb.data:
