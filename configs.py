@@ -10,7 +10,7 @@ class Config(object):
     SESSION_NAME = os.environ.get("SESSION_NAME", "Rename-Bot-0")
     SLEEP_TIME = int(os.environ.get("SLEEP_TIME", 5))
     BOT_OWNER = os.environ.get("BOT_OWNER", 1445283714)
-    CAPTION = "© By @AVBotz ❤️"
+    CAPTION = "**© By @AVBotz ❤️**"
     UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", None)
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", -100))
     MONGODB_URI = os.environ.get("MONGODB_URI", "")
@@ -19,8 +19,8 @@ class Config(object):
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
     START_TEXT = """**Hii {}, I'm a Simple File Renamer Bot with Permanent Thumbnail Support and many extra features! 💯
 
-👀 Also Configure the Settings for best experience...
-👀 Check Below Buttons for more :**
+Also Configure the Settings for best experience...
+Check Below Buttons for more :**
 
 **🤖 Developer : [Animesh Verma](https://t.me/Animesh941)**
 """
