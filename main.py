@@ -76,7 +76,7 @@ async def start_handler(bot: Client, event: Message, cb=False):
                            )
             
 @RenameBot.on_message(filters.private & filters.command("help"))
-async def start_handler(bot: Client, event: Message):
+async def start_handler(bot: Client, event: Message, cb=False):
     await AddUserToDatabase(bot, event)
     FSub = await ForceSub(bot, event)
     if FSub == 400:
@@ -96,7 +96,7 @@ async def start_handler(bot: Client, event: Message):
                            )
             
 @RenameBot.on_message(filters.private & filters.command("about"))
-async def start_handler(bot: Client, event: Message):
+async def start_handler(bot: Client, event: Message, cb=False):
     await AddUserToDatabase(bot, event)
     FSub = await ForceSub(bot, event)
     if FSub == 400:
