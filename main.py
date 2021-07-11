@@ -208,7 +208,7 @@ async def show_thumb_handler(bot: Client, event: Message):
                 await bot.send_message(
                     chat_id=event.chat.id,
                     text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")]),
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")]]),
                     reply_to_message_id=event.message_id
                 )
             except:
@@ -343,7 +343,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                     await bot.send_message(
                         chat_id=cb.message.chat.id,
                         text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
-                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")])
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")]])
                     )
                 except:
                     pass
