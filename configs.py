@@ -35,14 +35,14 @@ Check Below Buttons for more :**
 ✅ Thank You for Using Me..!**"""
     
     ABOUT_TEXT = """
-**● Developer : [Animesh Verma](https://t.me/Animesh941)**
-**● Updates Channel : [AV Botz](https://t.me/AVBotz)**
-**● Support Group : [Join Now](https://t.me/AVBotz_Support)**
-**● Language : [Python3](https://www.python.org)**
-**● Library : [Pyrogram](https://docs.pyrogram.org)**
-**● Server : [Heroku](https://heroku.com)
+**● Developed By : [This Person](https://t.me/Animesh941)
+● Updates Channel : [A𝕍Botz](https://t.me/AVBotz)
+● Support : [A𝕍Botz Support](https://t.me/AVBotz_Support)
+● Language : [Python 3](https://www.python.org)
+● Library : [Pyrogram](https://docs.pyrogram.org)
+● Server : [Heroku](https://heroku.com)
 
-© By @AVBotz ❤️**
+©️ Made By @AVBotz ❤️**
 """
 
     HELP_TEXT = """**Hello {}, It's too easy to use me..**
