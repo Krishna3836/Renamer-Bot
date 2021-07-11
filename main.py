@@ -64,6 +64,7 @@ async def start_handler(bot: Client, event: Message):
     await event.reply_text(
         text=f"{Config.START_TEXT}.format(event.from_user.mention)",
         quote=True,
+        disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton("👀 Configure Settings ⚙️", callback_data="openSettings")],
@@ -82,6 +83,7 @@ async def start_handler(bot: Client, event: Message):
     await event.reply_text(
         text=f"{Config.HELP_TEXT}.format(event.from_user.mention)",
         quote=True,
+        disable_web_page_preview=True, 
         reply_markup=InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton("🏡 Home", callback_data="home"),
@@ -98,7 +100,8 @@ async def start_handler(bot: Client, event: Message):
         return
     await event.reply_text(
         text=f"{Config.ABOUT_TEXT}",
-        quote=True,
+        quote=True, 
+        disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
             [
                 [InlineKeyboardButton("📮 Feedback DeV", url="https://t.me/Animesh941")],
