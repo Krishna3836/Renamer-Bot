@@ -18,8 +18,10 @@ class Config(object):
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
     START_TEXT = """**Hii {}, I'm a Simple File Renamer Bot with Permanent Thumbnail Support and many extra features! 💯
-**Also Configure the Settings for best experience...
+
+Also Configure the Settings for best experience...
 Check Below Buttons for more :**
+
 **🤖 Developer : [Animesh Verma](https://t.me/Animesh941)**
 """
     PROGRESS = """
