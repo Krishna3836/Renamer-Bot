@@ -9,7 +9,7 @@ class Config(object):
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
     SESSION_NAME = os.environ.get("SESSION_NAME", "Rename-Bot-0")
     SLEEP_TIME = int(os.environ.get("SLEEP_TIME", 5))
-    BOT_OWNER = os.environ.get("BOT_OWNER", "")
+    BOT_OWNER = int(os.environ.get("BOT_OWNER", 1445283714))
     CAPTION = "**© By @AVBotz ❤️**"
     UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", None)
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", -100))
