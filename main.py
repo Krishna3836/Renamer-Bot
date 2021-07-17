@@ -141,7 +141,8 @@ async def rename_handler(bot: Client, event: Message):
         try:
             ask_: Message = await bot.listen(event.chat.id, timeout=300)
             if ask_.text and (ask_.text.startswith("/") is False):
-                new_file_name = f"{download_location}{media.file_name.rsplit('.', 1)[-1]}"
+                ascii_ = ''.join([i if (i in string.digits or i in string.ascii_letters or i == " ") else "" for i in ask_.text.rsplit('.', 1)[0]])
+                new_file_name = f"{download_location}{ascii_.replace(' ', ' ')}.{media.file_name.rsplit('.', 1)[-1]}"
                 if len(new_file_name) > 255:
                     await reply_.edit("**😕 Make it Smaller... Don't write essays!!**")
                     return
