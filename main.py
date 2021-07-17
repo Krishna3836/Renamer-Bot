@@ -143,7 +143,7 @@ async def rename_handler(bot: Client, event: Message):
             if ask_.text and (ask_.text.startswith("/") is False):
                 ascii_ = ''.join([i if (i in string.digits or i in string.ascii_letters or i == " ") else "" for i in ask_.text.rsplit('.', 1)[0]])
                 prefix_ = await db.get_prefix(event.from_user.id)
-                new_file_name = f"{download_location}{prefix_ if (prefix_ is not None) else ''}{ascii_.replace(' ', '_')}.{media.file_name.rsplit('.', 1)[-1]}"
+                new_file_name = f"{download_location}{prefix_ if (prefix_ is not None) else ''}{ascii_.replace(' ')}.{media.file_name.rsplit('.', 1)[-1]}"
                 if len(new_file_name) > 255:
                     await reply_.edit("**😕 Make it Smaller... Don't write essays!!**")
                     return
