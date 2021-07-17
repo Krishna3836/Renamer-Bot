@@ -329,10 +329,10 @@ async def settings_handler(bot: Client, event: Message):
 async def callback_handlers(bot: Client, cb: CallbackQuery):
     if "closeMeh" in cb.data:
         await cb.message.delete(True)
-        await update.reply_to_message.delete()
+        await cb.message.reply_to_message.delete()
     elif "close" in cb.data:
         await cb.message.delete(True)
-        await update.reply_to_message.delete()
+        await cb.message.reply_to_message.delete()
     elif "help" in cb.data:
         await cb.edit_message_text(
               text = f"{Config.HELP_TEXT}".format(cb.from_user.mention),
