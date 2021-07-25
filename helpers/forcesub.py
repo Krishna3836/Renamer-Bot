@@ -24,14 +24,14 @@ async def ForceSub(bot: Client, event: Message):
         fix_ = await ForceSub(bot, event)
         return fix_
     except Exception as err:
-        print(f"**Unable to do Force Subscribe to {Config.UPDATES_CHANNEL}\n\nError: {err}, Contact us [Here](https://t.me/AVBotz_Support)**")
+        print(f"**Unable to do Force Subscribe to {Config.UPDATES_CHANNEL}\n\nError: {err}, Contact us [Here](https://t.me/dk_botz)**")
         return 200
     try:
         user = await bot.get_chat_member(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL), user_id=event.from_user.id)
         if user.status == "kicked":
             await bot.send_message(
                 chat_id=event.from_user.id,
-                text="**Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/AVBotz_Support)**",
+                text="**Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/dk_botz)**",
                 parse_mode="markdown",
                 disable_web_page_preview=True,
                 reply_to_message_id=event.message_id
@@ -59,5 +59,5 @@ async def ForceSub(bot: Client, event: Message):
         fix_ = await ForceSub(bot, event)
         return fix_
     except Exception as err:
-        print(f"**Something Went Wrong! Unable to do Force Subscribe.\nError: {err}, Contact us [Here](https://t.me/AVBotz_Support)*f")
+        print(f"**Something Went Wrong! Unable to do Force Subscribe.\nError: {err}, Contact us [Here](https://t.me/dk_botz)*f")
         return 200
