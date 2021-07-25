@@ -22,7 +22,7 @@ class Config(object):
 Also Configure the Settings for best experience...
 Check Below Buttons for more :**
 
-**🤖 Developer : [Anonymous](https://t.me/dkbotzhelo)**
+**🤖 Developer : [Anonymous](https://t.me/dkbotzhelp)**
 """
     PROGRESS = """
 **┈┈••✿ @DkBotz ✿••┈┈
