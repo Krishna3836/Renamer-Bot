@@ -10,22 +10,22 @@ class Config(object):
     SESSION_NAME = os.environ.get("SESSION_NAME", "Rename-Bot-0")
     SLEEP_TIME = int(os.environ.get("SLEEP_TIME", 5))
     BOT_OWNER = int(os.environ.get("BOT_OWNER", 1445283714))
-    CAPTION = "**© By @AVBotz ❤️**"
+    CAPTION = "**© By @Dkbotz ❤️**"
     UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", None)
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", -100))
     MONGODB_URI = os.environ.get("MONGODB_URI", "")
     DOWNLOAD_PATH = os.environ.get("DOWNLOAD_PATH", "./downloads")
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
-    START_TEXT = """**Hii {}, I'm a Simple File Renamer Bot with Permanent Thumbnail Support and many extra features! 💯
+    START_TEXT = """**Hi {}, I'm a Simple File Renamer Bot with Permanent Thumbnail Support and many extra features! 💯
 
 Also Configure the Settings for best experience...
 Check Below Buttons for more :**
 
-**🤖 Developer : [Animesh Verma](https://t.me/Animesh941)**
+**🤖 Developer : [Anonymous](https://t.me/dkbotzhelo)**
 """
     PROGRESS = """
-**┈┈••✿ @AVBotz ✿••┈┈
+**┈┈••✿ @DkBotz ✿••┈┈
 
 🐌 Speed : {3}/s
 📥 Done : {1}
@@ -35,14 +35,14 @@ Check Below Buttons for more :**
 ✅ Thank You for Using Me..!**"""
     
     ABOUT_TEXT = """
-**● Developed By : [This Person](https://t.me/Animesh941)
-● Updates Channel : [A𝕍Botz](https://t.me/AVBotz)
-● Support : [A𝕍Botz Support](https://t.me/AVBotz_Support)
+**● Developed By : [Anonymous](https://t.me/dkbotzhelp)
+● Updates Channel : [Dkbotz](https://t.me/dkbotz)
+● Support : [DkBotz Support](https://t.me/dk_botz)
 ● Language : [Python 3](https://www.python.org)
 ● Library : [Pyrogram](https://docs.pyrogram.org)
 ● Server : [Heroku](https://heroku.com)
 
-©️ Made By @AVBotz ❤️**
+©️ Made By @Dkbotz ❤️**
 """
 
     HELP_TEXT = """**Hello {}, It's too easy to use me..**
@@ -59,5 +59,5 @@ Check Below Buttons for more :**
 - /settings - Configure Settings 
 - /showthumb & /deletethumb - For Thumbnail
 
-© By @AVBotz ❤️**
+© By @Dkbotz ❤️**
 """
