@@ -45,7 +45,7 @@ async def UploadFile(bot: Client, message: Message, file_path: str, file_size):
             caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n{Config.CAPTION}") if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
+                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/dkbotz")]
                 ]
             )
         )
@@ -144,7 +144,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n{Config.CAPTION}") if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
+                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/dkbotz")]
                 ]
             )
         )
@@ -157,7 +157,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
         )
     except Exception as err:
         try:
-            await message.edit(f"**Failed To Upload, Contact [Here](https://t.me/AVBotz_Support)**")
+            await message.edit(f"**Failed To Upload, Contact [Here](https://t.me/dk_botz)**")
             await asyncio.sleep(50)
         except:
             print(f"**😐 Failed to Upload File!\nError: {err}**")
@@ -194,12 +194,12 @@ async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, 
             ),
             thumb=file_thumbnail,
             duration=(duration if (duration is not None) else 0),
-            performer=(performer if (performer is not None) else "Animesh"),
+            performer=(performer if (performer is not None) else "Dkbotzhelp"),
             title=(title if (title is not None) else file_path.rsplit('/', 1)[-1].rsplit(".", 1)[0]),
             caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n{Config.CAPTION}") if (caption_ is None) else caption_),
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
+                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/dkbotz")]
                 ]
             )
         )
@@ -212,7 +212,7 @@ async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, 
         )
     except Exception as err:
         try:
-            await message.edit(f"**Failed To Upload, Contact [Here](https://t.me/AVBotz_Support)**")
+            await message.edit(f"**Failed To Upload, Contact [Here](https://t.me/dk_botz)**")
             await asyncio.sleep(50)
             raise err
         except:
