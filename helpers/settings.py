@@ -9,7 +9,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 async def OpenSettings(event: Message, user_id: int):
     try:
         await event.edit(
-            text="**__⚙ Configure my Behavior from here, to experience the best service 😉\n\n© @AVBotz ❤️__**",
+            text="**__⚙ Configure my Behavior from here, to experience the best service 😉\n\n© @Dkbotz ❤️__**",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton(f"📤 Upload as Document {'✅' if ((await db.get_upload_as_doc(user_id)) is True) else '❌'}",
