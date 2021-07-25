@@ -49,7 +49,7 @@ HELP_BUTTONS = InlineKeyboardMarkup(
 
 ABOUT_BUTTONS = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("📮 Feedback DeV", url="https://t.me/Animesh941")],
+                [InlineKeyboardButton("📮 Feedback Dev", url="https://t.me/dkbotzhelp")],
                 [InlineKeyboardButton("🏡 Home", callback_data="home"),
                  InlineKeyboardButton("⛔ Close", callback_data="close")]
             ]
@@ -262,7 +262,7 @@ async def show_thumb_handler(bot: Client, event: Message):
             await bot.send_photo(
                 chat_id=event.chat.id,
                 photo=_thumbnail,
-                text=f"**👆🏻 Your Custom Thumbnail...\n© @AVBotz**", 
+                text=f"**👆🏻 Your Custom Thumbnail...\n© @Dkbotz**", 
                 reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("🗑️ Delete Thumbnail", callback_data="deleteThumbnail")]]
                 ),
@@ -273,7 +273,7 @@ async def show_thumb_handler(bot: Client, event: Message):
                 await bot.send_message(
                     chat_id=event.chat.id,
                     text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")]]),
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/dk_botz")]]),
                     reply_to_message_id=event.message_id
                 )
             except:
@@ -308,7 +308,7 @@ async def show_status_count(_, event: Message):
     disk_usage = psutil.disk_usage('/').percent
     total_users = await db.total_users_count()
     await event.reply_text(
-        text=f"**🤖 Rename Bot - @RenamerAVBot \n😺 Total Disk Space: {total} \n😹 Used Space: {used}({disk_usage}%) \n😸 Free Space: {free} \n😼 CPU Usage: {cpu_usage}% \n😽 RAM Usage: {ram_usage}%\n\n✅ Total Users in DB: {total_users}**",
+        text=f"**🤖 Rename Bot - @Dkrenamerbot \n😺 Total Disk Space: {total} \n😹 Used Space: {used}({disk_usage}%) \n😸 Free Space: {free} \n😼 CPU Usage: {cpu_usage}% \n😽 RAM Usage: {ram_usage}%\n\n✅ Total Users in DB: {total_users}**",
         parse_mode="Markdown",
         quote=True
     )
@@ -419,7 +419,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 await bot.send_photo(
                     chat_id=cb.message.chat.id,
                     photo=thumbnail,
-                    text=f"**👆🏻 Your Custom Thumbnail...\n© @AVBotz**",
+                    text=f"**👆🏻 Your Custom Thumbnail...\n© @Dkbotz**",
                     reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🗑️ Delete Thumbnail", callback_data="deleteThumbnail")]])
                 )
             except Exception as err:
@@ -427,7 +427,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                     await bot.send_message(
                         chat_id=cb.message.chat.id,
                         text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
-                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")]])
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/dk_botz")]])
                     )
                 except:
                     pass
