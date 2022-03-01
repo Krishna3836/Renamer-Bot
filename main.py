@@ -190,9 +190,12 @@ async def rename_handler(bot: Client, event: Message):
                         file_path=new_file_name,
                         file_size=media.file_size
                     )
-                except Exception as err:
-                    try:
-                        await reply_.edit(f"**Error:** `{err}`")
+        except Exception as err:
+            try:
+                os.remove(new_file_name)
+              #  os.remove(thumb_image_path)
+            except:
+                pass
 
 
 
