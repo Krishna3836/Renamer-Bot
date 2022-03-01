@@ -18,6 +18,7 @@ class Config(object):
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
     DOWNLOAD_LOCATION = "./DOWNLOADS"
+    DOWNLOAD_START ="Processing To Download"
     # Telegram maximum file upload size
     START_TEXT = """Hey {} 🙋
 
