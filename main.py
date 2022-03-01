@@ -139,8 +139,8 @@ async def rename_handler(bot: Client, event: Message):
         c_time = time.time()
         try:
             await bot.download_media(
-                message=event,
-                file_name=new_file_name,
+                message=update.reply_to_message,
+                file_name=download_location,
                 progress=progress_for_pyrogram,
                 progress_args=(
                     "Downloading File ...",
