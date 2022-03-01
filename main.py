@@ -119,23 +119,7 @@ async def start_handler(bot: Client, event: Message, cb=False):
                  disable_web_page_preview=True
                      )
 
-@RenameBot.on_message(filters.private & (filters.video | filters.document | filters.audio))
-async def rename_handler(bot: Client, event: Message):
-    await AddUserToDatabase(bot, event)
-    FSub = await ForceSub(bot, event)
-    if FSub == 400:
-        return
-    isInGap, t_ = await CheckTimeGap(user_id=event.from_user.id)
-    if (Config.ONE_PROCESS_ONLY is False) and (isInGap is True):
-        await event.reply_text(f"Sorry Sir,\nNo Flooding Allowed!\nSend Video After `{str(t_)}s` !!", quote=True)
-        return
-    elif (Config.ONE_PROCESS_ONLY is True) and (isInGap is True):
-        await event.reply_text(f"Sorry Sir,\nNo Flooding Allowed!\n{t_}", quote=True)
-        return
-        if os.path.exists(download_location):
-            os.makedirs(download_location)
-                await reply_.edit("Downloading File ...")
-                await asyncio.sleep(Config.SLEEP_TIME)
+
                 c_time = time.time()
                 try:
                     await bot.download_media(
