@@ -155,6 +155,13 @@ async def rename_handler(bot: Client, event: Message):
                 await UploadFile(
                     bot,
                     reply_,
+                   
+                    file_path=new_file_name,
+                    file_size=media.file_size
+                    chat_id=event.chat.id,
+                
+                    caption=description,              
+                    reply_to_message_id=event.reply_to_message.message_id,
                 )
             else:
                 if event.audio:
@@ -178,12 +185,12 @@ async def rename_handler(bot: Client, event: Message):
                     await UploadVideo(
                         bot,
                         reply_,
-                        chat_id=update.chat.id,
+                        chat_id=event.chat.id,
                
                         caption=description,
                
                 
-                        reply_to_message_id=update.reply_to_message.message_id,
+                        reply_to_message_id=event.reply_to_message.message_id,
                         default_thumb=thumb_,
                         duration=duration_,
                         width=width_,
@@ -195,6 +202,10 @@ async def rename_handler(bot: Client, event: Message):
                         reply_,
                         file_path=new_file_name,
                         file_size=media.file_size
+                        chat_id=event.chat.id,
+                
+                        caption=description,              
+                        reply_to_message_id=event.reply_to_message.message_id,
                     )
         except Exception as err:
             try:
