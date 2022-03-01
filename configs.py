@@ -18,15 +18,15 @@ class Config(object):
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
 
-    START_TEXT = """**Hᴇʏ {} 🙋
+    START_TEXT = """Hey {} 🙋
 
-I ᴀᴍ ᴀ ᴛɢ ʀᴇɴᴀᴍᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘᴇʀᴍᴀɴᴇɴᴛ ᴛʜᴜᴍʙɴᴀɪʟ sᴜᴘᴘᴏʀᴛ
+I am a TG Renamer bot with permanent thumbnail support.
 
-Pʀᴇss /settings ᴛᴏ ᴄʜᴀɴɢᴇ ᴍʏ sᴇᴛᴛɪɴɢs ⚙
+Press /settings to change my settings ⚙.
 
-📛 Fᴏʀ ᴍᴏʀᴇ ᴅᴇᴛᴀɪʟs ᴄʜᴇᴄᴋ ʜᴇʟᴘ
+📛 For More Details check Help
 
-Mᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ: [ᴛᴇʟʟʏʙᴏᴛs](t.me/Tellybots)**
+Maintained By:  [Tellybots](t.me/Tellybots)
 
 """
     PROGRESS = """
