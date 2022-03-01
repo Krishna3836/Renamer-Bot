@@ -31,29 +31,33 @@ RenameBot = Client(
 )
 
 START_BUTTONS = InlineKeyboardMarkup(
-            [
-                [InlineKeyboardButton("👀 Configure Settings ⚙️", callback_data="openSettings")],
-                [InlineKeyboardButton("ℹ️ Help", callback_data="help"),
-                 InlineKeyboardButton("🤖 About", callback_data="about"),
-                 InlineKeyboardButton("⛔ Close", callback_data="close")]
-            ]
-        )
+        [[
+        InlineKeyboardButton('🚴 Oᴡɴᴇʀ', url='https://telegram.me/Tellybots'),
+        InlineKeyboardButton('🌀 ᴀʙᴏᴜᴛ', callback_data='about')
+        ],[
+        InlineKeyboardButton('💡 ʜᴇʟᴘ', callback_data='help'),
+        InlineKeyboardButton('⚙️ Settings ', callback_data='setting')
+        ],[
+        InlineKeyboardButton('🗑️ ᴄʟᴏsᴇ', callback_data='close')
+        ]]
+    )
 
 HELP_BUTTONS = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("🏡 Home", callback_data="home"),
-                 InlineKeyboardButton("🤖 About", callback_data="about"),
-                 InlineKeyboardButton("⛔ Close", callback_data="close")]
+                [InlineKeyboardButton("🔰 Hᴏᴍᴇ", callback_data="home"),
+                 InlineKeyboardButton("🌀 ᴀʙᴏᴜᴛ", callback_data="about"),
+                 InlineKeyboardButton("🗑️ ᴄʟᴏsᴇ", callback_data="close")]
             ]
         )
 
 ABOUT_BUTTONS = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("📮 Feedback Dev", url="https://t.me/dkbotzhelp")],
+                [InlineKeyboardButton("📮 Feedback Dev", url="https://t.me/Anime")],
                 [InlineKeyboardButton("🏡 Home", callback_data="home"),
                  InlineKeyboardButton("⛔ Close", callback_data="close")]
             ]
         )
+
 
 @RenameBot.on_message(filters.private & filters.command("start"))
 async def start_handler(bot: Client, event: Message, cb=False):
