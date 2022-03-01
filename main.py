@@ -131,7 +131,7 @@ async def rename_handler(bot: Client, event: Message):
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
         if os.path.exists(download_location):
             os.makedirs(download_location)
-        await reply_.text
+        await reply_("**👀 Processing...**")
         c_time = time.time()
         try:
             await bot.download_media(
