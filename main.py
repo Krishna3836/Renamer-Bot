@@ -155,8 +155,6 @@ async def rename_handler(bot: Client, event: Message):
                 await UploadFile(
                     bot,
                     reply_,
-                    file_path=new_file_name,
-                    file_size=media.file_size
                 )
             else:
                 if event.audio:
@@ -180,8 +178,12 @@ async def rename_handler(bot: Client, event: Message):
                     await UploadVideo(
                         bot,
                         reply_,
-                        file_path=new_file_name,
-                        file_size=media.file_size,
+                        chat_id=update.chat.id,
+               
+                        caption=description,
+               
+                
+                        reply_to_message_id=update.reply_to_message.message_id,
                         default_thumb=thumb_,
                         duration=duration_,
                         width=width_,
