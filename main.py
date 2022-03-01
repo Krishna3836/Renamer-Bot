@@ -36,7 +36,7 @@ START_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton('🌀 ᴀʙᴏᴜᴛ', callback_data='about')
         ],[
         InlineKeyboardButton('💡 ʜᴇʟᴘ', callback_data='help'),
-        InlineKeyboardButton('⚙️ Settings ', callback_data='openSettings')
+        InlineKeyboardButton('⚙️ Sᴇᴛᴛɪɴɢs', callback_data='openSettings')
         ],[
         InlineKeyboardButton('🗑️ ᴄʟᴏsᴇ', callback_data='close')
         ]]
@@ -52,9 +52,9 @@ HELP_BUTTONS = InlineKeyboardMarkup(
 
 ABOUT_BUTTONS = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("📮 Feedback Dev", url="https://t.me/Anime")],
-                [InlineKeyboardButton("🏡 Home", callback_data="home"),
-                 InlineKeyboardButton("⛔ Close", callback_data="close")]
+                [InlineKeyboardButton("📝 Fᴇᴇᴅʙᴀᴄᴋ ᴅᴇᴠ", url="https://t.me/Tellybots_support")],
+                [InlineKeyboardButton("🔰 Hᴏᴍᴇ", callback_data="home"),
+                 InlineKeyboardButton("🗑️ ᴄʟᴏsᴇ", callback_data="close")]
             ]
         )
 
@@ -66,7 +66,7 @@ async def start_handler(bot: Client, event: Message, cb=False):
     if FSub == 400:
         return
     if not cb:
-        send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
+        send_msg = await event.reply_text("**👀 Pʀᴏᴄᴇssɪɴɢ......**", quote=True)    
     await send_msg.edit(
       text=f"{Config.START_TEXT}".format(event.from_user.mention), 
       reply_markup=START_BUTTONS, 
@@ -86,7 +86,7 @@ async def start_handler(bot: Client, event: Message, cb=False):
     if FSub == 400:
         return
     if not cb:
-        send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
+        send_msg = await event.reply_text("**👀 Pʀᴏᴄᴇssɪɴɢ......**", quote=True)    
     await send_msg.edit(
       text=f"{Config.HELP_TEXT}".format(event.from_user.mention), 
       reply_markup=HELP_BUTTONS, 
@@ -106,7 +106,7 @@ async def start_handler(bot: Client, event: Message, cb=False):
     if FSub == 400:
         return
     if not cb:
-        send_msg = await event.reply_text("**👀 Processing......**", quote=True)    
+        send_msg = await event.reply_text("**👀 Pʀᴏᴄᴇssɪɴɢ......**", quote=True)    
     await send_msg.edit(
       text=f"{Config.ABOUT_TEXT}", 
       reply_markup=ABOUT_BUTTONS, 
@@ -136,7 +136,7 @@ async def rename_handler(bot: Client, event: Message):
     media = event.video or event.audio or event.document
     if media and media.file_name:
         reply_ = await event.reply_text(
-            text=f"**👀 Enter a New File Name for this File 📂\nNote: `Extension not Required`**",
+            text=f"**👀 Eɴᴛᴇʀ ᴀ ɴᴇᴡ ғɪʟᴇ ɴᴀᴍᴇ ғᴏʀ ᴛʜɪs ғɪʟᴇ 🗃️\n\n 📝 ɴᴏᴛᴇ: ᴇxᴛᴇɴsɪᴏɴ ɴᴏᴛ ʀᴇǫᴜɪʀᴇᴅ**",
             quote=True
         )
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
@@ -151,7 +151,7 @@ async def rename_handler(bot: Client, event: Message):
                     await reply_.edit("**😕 Make it Smaller... Don't write essays!!**")
                     return
                 await ask_.delete(True)
-                await reply_.edit("**📥 Trying to Download...**")
+                await reply_.edit("**📩 Tʀʏɪɴɢ ᴛᴏ Dᴏᴡɴʟᴏᴀᴅ....**")
                 await asyncio.sleep(Config.SLEEP_TIME)
                 c_time = time.time()
                 try:
@@ -160,19 +160,20 @@ async def rename_handler(bot: Client, event: Message):
                         file_name=new_file_name,
                         progress=progress_for_pyrogram,
                         progress_args=(
-                            "**Downloading... 😴**",
+                            "**Dᴏᴡɴʟᴏᴀᴅɪɴɢ ᴛᴏ ᴍʏ sᴇʀᴠᴇʀ ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ❄️**",
+
                             reply_,
                             c_time
                         )
                     )
                     if not os.path.lexists(new_file_name):
                         try:
-                            await reply_.edit("**No File Found 😒**")
+                            await reply_.edit("**Nᴏ ғɪʟᴇ ғᴏᴜɴᴅ 😒**")
                         except:
-                            print(f"**🙄 Unable to Find File for {str(event.from_user.id)} !!**")
+                            print(f"**🙄 Uɴᴀʙʟᴇ ᴛᴏ ғɪɴᴅ ғɪʟᴇ ғᴏʀ {str(event.from_user.id)} !!**")
                         return
                     await asyncio.sleep(Config.SLEEP_TIME)
-                    await reply_.edit("**📤 Trying to Upload...**")
+                    await reply_.edit("**📤 Tʀʏɪɴɢ ᴛᴏ ᴜᴘʟᴏᴀᴅ....**")
                     upload_as_doc = await db.get_upload_as_doc(event.from_user.id)
                     if upload_as_doc is True:
                         await UploadFile(
@@ -234,9 +235,9 @@ async def photo_handler(bot: Client, event: Message):
     FSub = await ForceSub(bot, event)
     if FSub == 400:
         return
-    editable = await event.reply_text("**👀 Processing...**")
+    editable = await event.reply_text("**👀 Pʀᴏᴄᴇssɪɴɢ...**")
     await db.set_thumbnail(event.from_user.id, thumbnail=event.photo.file_id)
-    await editable.edit("**✅ Custom Thumbnail Saved Successfully!**")
+    await editable.edit("**✅ Cᴜsᴛᴏᴍ ᴠɪᴅᴇᴏ / ғɪʟᴇ ᴛʜᴜᴍʙɴᴀɪʟ sᴀᴠᴇᴅ. Tʜɪs ɪᴍᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴜsᴇᴅ ɪɴ ᴛʜᴇ ᴠɪᴅᴇᴏ / ғɪʟᴇ.**")
 
 
 @RenameBot.on_message(filters.private & filters.command(["deletethumb", "deletethumbnail"]) & ~filters.edited)
@@ -247,7 +248,7 @@ async def delete_thumb_handler(bot: Client, event: Message):
         return
     await db.set_thumbnail(event.from_user.id, thumbnail=None)
     await event.reply_text(
-        "**🗑️ Custom Thumbnail Deleted Successfully!**",
+        "**🗑️ Cᴜsᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ ᴅᴇʟᴇᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ!!**",
         reply_markup=InlineKeyboardMarkup([
             [InlineKeyboardButton("⚙ Configure Settings 👀", callback_data="openSettings")]
         ])
@@ -266,7 +267,7 @@ async def show_thumb_handler(bot: Client, event: Message):
             await bot.send_photo(
                 chat_id=event.chat.id,
                 photo=_thumbnail,
-                text=f"**👆🏻 Your Custom Thumbnail...\n© @Dkbotz**", 
+                text=f"**👆🏻 Yᴏᴜʀ ᴄᴜsᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ**", 
                 reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("🗑️ Delete Thumbnail", callback_data="deleteThumbnail")]]
                 ),
@@ -276,14 +277,14 @@ async def show_thumb_handler(bot: Client, event: Message):
             try:
                 await bot.send_message(
                     chat_id=event.chat.id,
-                    text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
+                    text=f"**😐 Uɴᴀʙʟᴇ ᴛᴏ sᴇɴᴅ ᴛʜᴜᴍʙɴᴀɪʟ! ɢᴏᴛ ᴀɴ ᴜɴᴇxᴘᴇᴄᴛᴇᴅ ᴇʀʀᴏʀ**",
                     reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/dk_botz")]]),
                     reply_to_message_id=event.message_id
                 )
             except:
                 pass
     else:
-        await event.reply_text("**🤧 No Thumbnail Found, Send any image to set it as your custom Thumbnail**", quote=True)
+        await event.reply_text("**🤧 Nᴏ ᴛʜᴜᴍʙɴᴀɪʟ ғᴏᴜɴᴅ, sᴇɴᴅ ᴀɴʏ ɪᴍᴀɢᴇ ᴛᴏ sᴇᴛ ɪᴛ ᴀs ʏᴏᴜʀ ᴄᴜsᴛᴏᴍ Tʜᴜᴍʙɴᴀɪʟ**", quote=True)
 
 
 @RenameBot.on_message(filters.private & filters.command(["delete_caption", "del_caption", "remove_caption", "rm_caption"]) & ~filters.edited)
@@ -293,7 +294,7 @@ async def delete_caption(bot: Client, event: Message):
     if FSub == 400:
         return
     await db.set_caption(event.from_user.id, caption=None)
-    await event.reply_text("**👀 Custom Caption Removed Successfully!**")
+    await event.reply_text("**👀 ᴄᴜsᴛᴏᴍ ᴄᴀᴘᴛɪᴏɴ ʀᴇᴍᴏᴠᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ!!**")
 
 
 @RenameBot.on_message(filters.private & filters.command("broadcast") & filters.user(Config.BOT_OWNER) & filters.reply)
@@ -325,7 +326,7 @@ async def settings_handler(bot: Client, event: Message):
     if FSub == 400:
         return
     editable = await event.reply_text(
-        text="**👀 Processing...**"
+        text="**👀 Pʀᴏᴄᴇssɪɴɢ...**"
     )
     await OpenSettings(editable, user_id=event.from_user.id)
 
@@ -430,7 +431,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 try:
                     await bot.send_message(
                         chat_id=cb.message.chat.id,
-                        text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
+                        text=f"**😐 Uɴᴀʙʟᴇ ᴛᴏ sᴇɴᴅ ᴛʜᴜᴍʙɴᴀɪʟ! ɢᴏᴛ ᴀɴ ᴜɴᴇxᴘᴇᴄᴛᴇᴅ ᴇʀʀᴏʀ**",
                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/dk_botz")]])
                     )
                 except:
