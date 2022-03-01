@@ -132,7 +132,6 @@ async def rename_handler(bot: Client, event: Message):
     elif (Config.ONE_PROCESS_ONLY is True) and (isInGap is True):
         await event.reply_text(f"Sorry Sir,\nNo Flooding Allowed!\n{t_}", quote=True)
         return
-        download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
         if os.path.exists(download_location):
             os.makedirs(download_location)
                 await reply_.edit("Downloading File ...")
