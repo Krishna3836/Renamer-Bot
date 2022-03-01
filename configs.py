@@ -35,7 +35,7 @@ class Config(object):
 ⏳ Time Left : {4}\n\n
 """
     
-    ABOUT_TEXT = = """
+    ABOUT_TEXT = """
 **Mʏ ɴᴀᴍᴇ** : [Renamer ʙᴏᴛ](http://t.me/MediaRenamerBot)
 
 **Cʜᴀɴɴᴇʟ** : [Tᴇʟʟʏʙᴏᴛs](https://t.me/TellyBots)
