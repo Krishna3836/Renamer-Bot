@@ -126,100 +126,135 @@ async def start_handler(bot: Client, event: Message, cb=False):
             #except:
                 #pass
 
+
+
+
+
+
+
+
+
+
 @RenameBot.on_message(filters.private & (filters.video | filters.document | filters.audio))
 async def rename_handler(bot: Client, event: Message):
+    await AddUserToDatabase(bot, event)
+    FSub = await ForceSub(bot, event)
+    if FSub == 400:
+        return
+    isInGap, t_ = await CheckTimeGap(user_id=event.from_user.id)
+    if (Config.ONE_PROCESS_ONLY is False) and (isInGap is True):
+        await event.reply_text(f"**Please use me after {str(t_)} seconds !!**", quote=True)
+        return
+    elif (Config.ONE_PROCESS_ONLY is True) and (isInGap is True):
+        await event.reply_text("**Please use me after {t_}**", quote=True)
+        return
+    media = event.video or event.audio or event.document
+    if media and media.file_name:
+        reply_ = await event.reply_text(
+            text=f"**👀 Enter a New File Name for this File 📂\nNote: `Extension not Required`**",
+            quote=True
+        )
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
         if os.path.exists(download_location):
             os.makedirs(download_location)
-        reply_= await bot.send_message(
-            chat_id=event.chat.id,
-            text=Config.DOWNLOAD_START,
-            reply_to_message_id=event.message_id
-        )
-        c_time = time.time()
         try:
-            await bot.download_media(
-                message=update.reply_to_message,
-                file_name=download_location,
-                progress=progress_for_pyrogram,
-                progress_args=(
-                    "Downloading File ...",
-                    reply_,
-                    c_time
-                )
-            )
-            await asyncio.sleep(Config.SLEEP_TIME)
-            await reply_.edit("Uploading File ...")
-            upload_as_doc = await db.get_upload_as_doc(event.from_user.id)
-            if upload_as_doc is True:
-                await UploadFile(
-                    bot,
-                    reply_,
-                   
-                    file_path=new_file_name,
-                    file_size=media.file_size,
-                    chat_id=event.chat.id,
-                
-                    caption=description,              
-                    reply_to_message_id=event.reply_to_message.message_id,
-                )
-            else:
-                if event.audio:
-                    duration_ = event.audio.duration if event.audio.duration else 0
-                    performer_ = event.audio.performer if event.audio.performer else None
-                    title_ = event.audio.title if event.audio.title else None
-                    await UploadAudio(
-                        bot,
-                        reply_,
-                        file_path=new_file_name,
-                        file_size=media.file_size,
-                        duration=duration_,
-                        performer=performer_,
-                        title=title_
+            ask_: Message = await bot.listen(event.chat.id, timeout=300)
+            if ask_.text and (ask_.text.startswith("/") is False):
+                ascii_ = ''.join([i if (i in string.digits or i in string.ascii_letters or i == " ") else "" for i in ask_.text.rsplit('.', 1)[0]])
+                new_file_name = f"{download_location}{ascii_.replace(' ', ' ')}.{media.file_name.rsplit('.', 1)[-1]}"
+                if len(new_file_name) > 255:
+                    await reply_.edit("**😕 Make it Smaller... Don't write essays!!**")
+                    return
+                await ask_.delete(True)
+                await reply_.edit("**📥 Trying to Download...**")
+                await asyncio.sleep(Config.SLEEP_TIME)
+                c_time = time.time()
+                try:
+                    await bot.download_media(
+                        message=event,
+                        file_name=new_file_name,
+                        progress=progress_for_pyrogram,
+                        progress_args=(
+                            "**Downloading... 😴**",
+                            reply_,
+                            c_time
+                        )
                     )
-                elif event.video or (event.document and event.document.mime_type.startswith("video/")):
-                    thumb_ = event.video.thumbs[0] if ((event.document is None) and (event.video.thumbs is not None)) else None
-                    duration_ = event.video.duration if ((event.document is None) and (event.video.thumbs is not None)) else 0
-                    width_ = event.video.width if ((event.document is None) and (event.video.thumbs is not None)) else 0
-                    height_ = event.video.height if ((event.document is None) and (event.video.thumbs is not None)) else 0
-                    await UploadVideo(
-                        bot,
-                        reply_,
-                        chat_id=event.chat.id,
-               
-                        caption=description,
-               
-                
-                        reply_to_message_id=event.reply_to_message.message_id,
-                        default_thumb=thumb_,
-                        duration=duration_,
-                        width=width_,
-                        height=height_
-                    )
-                else:
-                    await UploadFile(
-                        bot,
-                        reply_,
-                        file_path=new_file_name,
-                        file_size=media.file_size,
-                        chat_id=event.chat.id,
-                
-                        caption=description,              
-                        reply_to_message_id=event.reply_to_message.message_id,
-                    )
-        except Exception as err:
-            try:
-                os.remove(new_file_name)
-              #  os.remove(thumb_image_path)
-            except:
-                pass
+                    if not os.path.lexists(new_file_name):
+                        try:
+                            await reply_.edit("**No File Found 😒**")
+                        except:
+                            print(f"**🙄 Unable to Find File for {str(event.from_user.id)} !!**")
+                        return
+                    await asyncio.sleep(Config.SLEEP_TIME)
+                    await reply_.edit("**📤 Trying to Upload...**")
+                    upload_as_doc = await db.get_upload_as_doc(event.from_user.id)
+                    if upload_as_doc is True:
+                        await UploadFile(
+                            bot,
+                            reply_,
+                            file_path=new_file_name,
+                            file_size=media.file_size
+                        )
+                    else:
+                        if event.audio:
+                            duration_ = event.audio.duration if event.audio.duration else 0
+                            performer_ = event.audio.performer if event.audio.performer else None
+                            title_ = event.audio.title if event.audio.title else None
+                            await UploadAudio(
+                                bot,
+                                reply_,
+                                file_path=new_file_name,
+                                file_size=media.file_size,
+                                duration=duration_,
+                                performer=performer_,
+                                title=title_
+                            )
+                        elif event.video or (event.document and event.document.mime_type.startswith("video/")):
+                            thumb_ = event.video.thumbs[0] if ((event.document is None) and (event.video.thumbs is not None)) else None
+                            duration_ = event.video.duration if ((event.document is None) and (event.video.thumbs is not None)) else 0
+                            width_ = event.video.width if ((event.document is None) and (event.video.thumbs is not None)) else 0
+                            height_ = event.video.height if ((event.document is None) and (event.video.thumbs is not None)) else 0
+                            await UploadVideo(
+                                bot,
+                                reply_,
+                                file_path=new_file_name,
+                                file_size=media.file_size,
+                                default_thumb=thumb_,
+                                duration=duration_,
+                                width=width_,
+                                height=height_
+                            )
+                        else:
+                            await UploadFile(
+                                bot,
+                                reply_,
+                                file_path=new_file_name,
+                                file_size=media.file_size
+                            )
+                except Exception as err:
+                    try:
+                        await reply_.edit(f"**Error:** `{err}`")
+                    except:
+                        print(f"**Error:** `{err}`")
+            elif ask_.text and (ask_.text.startswith("/") is True):
+                await reply_.edit("**❌ Cancelled the Ongoing Process... 😐**")
+        except TimeoutError:
+            await reply_.edit("**🤬 Do you really want to rename then please enter your new File Name... I'm not only for you 👀**")
 
 
+@RenameBot.on_message(filters.private & filters.photo & ~filters.edited)
+async def photo_handler(bot: Client, event: Message):
+    await AddUserToDatabase(bot, event)
+    FSub = await ForceSub(bot, event)
+    if FSub == 400:
+        return
+    editable = await event.reply_text("**👀 Processing...**")
+    await db.set_thumbnail(event.from_user.id, thumbnail=event.photo.file_id)
+    await editable.edit("**✅ Custom Thumbnail Saved Successfully!**")
 
 
-
-
-@RenameBot.on_message(filters.private & filters.command(["delete_thumbnail", "delete_thumb", "del_thumb", "delthumb"]) & ~filters.edited)
+@RenameBot.on_message(filters.private & filters.command(["deletethumb", "deletethumbnail"]) & ~filters.edited)
 async def delete_thumb_handler(bot: Client, event: Message):
     await AddUserToDatabase(bot, event)
     FSub = await ForceSub(bot, event)
@@ -227,15 +262,14 @@ async def delete_thumb_handler(bot: Client, event: Message):
         return
     await db.set_thumbnail(event.from_user.id, thumbnail=None)
     await event.reply_text(
-        "Custom Thumbnail Deleted Successfully!",
+        "**🗑️ Custom Thumbnail Deleted Successfully!**",
         reply_markup=InlineKeyboardMarkup([
-            [InlineKeyboardButton("Go To Settings", callback_data="openSettings")],
-            [InlineKeyboardButton("Close", callback_data="closeMeh")]
+            [InlineKeyboardButton("⚙ Configure Settings 👀", callback_data="openSettings")]
         ])
     )
 
 
-@RenameBot.on_message(filters.private & filters.command(["show_thumbnail", "show_thumb", "showthumbnail", "showthumb"]) & ~filters.edited)
+@RenameBot.on_message(filters.private & filters.command(["showthumb", "showthumbnail"]) & ~filters.edited)
 async def show_thumb_handler(bot: Client, event: Message):
     await AddUserToDatabase(bot, event)
     FSub = await ForceSub(bot, event)
@@ -247,8 +281,9 @@ async def show_thumb_handler(bot: Client, event: Message):
             await bot.send_photo(
                 chat_id=event.chat.id,
                 photo=_thumbnail,
+                text=f"**👆🏻 Your Custom Thumbnail...**", 
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("Delete Thumbnail", callback_data="deleteThumbnail")]]
+                    [[InlineKeyboardButton("🗑️ Delete Thumbnail", callback_data="deleteThumbnail")]]
                 ),
                 reply_to_message_id=event.message_id
             )
@@ -256,14 +291,14 @@ async def show_thumb_handler(bot: Client, event: Message):
             try:
                 await bot.send_message(
                     chat_id=event.chat.id,
-                    text=f"Unable to send Thumbnail!\n\n**Error:** `{err}`",
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("❎ Close ❎", callback_data="closeMeh")]]),
+                    text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")]]),
                     reply_to_message_id=event.message_id
                 )
             except:
                 pass
     else:
-        await event.reply_text("No Thumbnail Found in Database!\nSend a Thumbnail to Save.", quote=True)
+        await event.reply_text("**🤧 No Thumbnail Found, Send any image to set it as your custom Thumbnail**", quote=True)
 
 
 @RenameBot.on_message(filters.private & filters.command(["delete_caption", "del_caption", "remove_caption", "rm_caption"]) & ~filters.edited)
@@ -273,7 +308,7 @@ async def delete_caption(bot: Client, event: Message):
     if FSub == 400:
         return
     await db.set_caption(event.from_user.id, caption=None)
-    await event.reply_text("Custom Caption Removed Successfully!")
+    await event.reply_text("**👀 Custom Caption Removed Successfully!**")
 
 
 @RenameBot.on_message(filters.private & filters.command("broadcast") & filters.user(Config.BOT_OWNER) & filters.reply)
@@ -292,7 +327,7 @@ async def show_status_count(_, event: Message):
     disk_usage = psutil.disk_usage('/').percent
     total_users = await db.total_users_count()
     await event.reply_text(
-        text=f"**Total Disk Space:** {total} \n**Used Space:** {used}({disk_usage}%) \n**Free Space:** {free} \n**CPU Usage:** {cpu_usage}% \n**RAM Usage:** {ram_usage}%\n\n**Total Users in DB:** `{total_users}`",
+        text=f"**🤖 Rename Bot - @RenamerAVBot \n😺 Total Disk Space: {total} \n😹 Used Space: {used}({disk_usage}%) \n😸 Free Space: {free} \n😼 CPU Usage: {cpu_usage}% \n😽 RAM Usage: {ram_usage}%\n\n✅ Total Users in DB: {total_users}**",
         parse_mode="Markdown",
         quote=True
     )
@@ -305,11 +340,176 @@ async def settings_handler(bot: Client, event: Message):
     if FSub == 400:
         return
     editable = await event.reply_text(
-        text="Please Wait ..."
+        text="**👀 Processing...**"
     )
     await OpenSettings(editable, user_id=event.from_user.id)
 
 
+@RenameBot.on_callback_query()
+async def callback_handlers(bot: Client, cb: CallbackQuery):
+    if "closeMeh" in cb.data:
+        await cb.message.delete(True)
+        await cb.message.reply_to_message.delete()
+    elif "close" in cb.data:
+        await cb.message.delete(True)
+        await cb.message.reply_to_message.delete()
+    elif "help" in cb.data:
+        await cb.edit_message_text(
+              text = f"{Config.HELP_TEXT}".format(cb.from_user.mention),
+              disable_web_page_preview = True,
+              reply_markup = HELP_BUTTONS)
+    elif "home" in cb.data:
+        await cb.edit_message_text(
+              text = f"{Config.START_TEXT}".format(cb.from_user.mention),
+              disable_web_page_preview = True,
+              reply_markup = START_BUTTONS)
+    elif "about" in cb.data:
+        await cb.edit_message_text(
+              text = f"{Config.ABOUT_TEXT}".format(cb.from_user.mention),
+              disable_web_page_preview = True,
+              reply_markup = ABOUT_BUTTONS)
+    elif "openSettings" in cb.data:
+        await OpenSettings(cb.message, user_id=cb.from_user.id)
+    elif "triggerUploadMode" in cb.data:
+        upload_as_doc = await db.get_upload_as_doc(cb.from_user.id)
+        if upload_as_doc is True:
+            await db.set_upload_as_doc(cb.from_user.id, upload_as_doc=False)
+        else:
+            await db.set_upload_as_doc(cb.from_user.id, upload_as_doc=True)
+        await OpenSettings(cb.message, user_id=cb.from_user.id)
+    elif "forceNewPrefix" in cb.data:
+        await cb.message.edit(
+            text="**Send me New File Name Prefix!**"
+        )
+        try:
+            ask_: Message = await bot.listen(cb.message.chat.id, timeout=300)
+            if ask_.text and (ask_.text.startswith("/") is False):
+                await ask_.delete(True)
+                await SetupPrefix(ask_.text, user_id=cb.from_user.id, editable=cb.message)
+            elif ask_.text and (ask_.text.startswith("/") is True):
+                await cb.message.edit(
+                    text="**Current Process Cancelled!**",
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]])
+                )
+        except TimeoutError:
+            await cb.message.edit(
+                text="**I Can't Wait More... BYE 👋🏻**",
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]])
+            )
+    elif "triggerPrefix" in cb.data:
+        current_prefix = await db.get_prefix(cb.from_user.id)
+        if current_prefix is None:
+            await cb.answer("No Prefix Found... ", show_alert=True)
+            await cb.message.edit(
+                text="**Send me a File Name Prefix!**"
+            )
+            try:
+                ask_: Message = await bot.listen(cb.message.chat.id, timeout=300)
+                if ask_.text and (ask_.text.startswith("/") is False):
+                    await ask_.delete(True)
+                    await SetupPrefix(ask_.text, user_id=cb.from_user.id, editable=cb.message)
+                elif ask_.text and (ask_.text.startswith("/") is True):
+                    await cb.message.edit(
+                        text="**Current Process Cancelled!**",
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]])
+                    )
+            except TimeoutError:
+                await cb.message.edit(
+                    text="**I Can't Wait More... BYE 👋🏻**",
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]])
+                )
+        else:
+            await cb.message.edit(
+                text=f"**Current Prefix:** `{current_prefix}`",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [InlineKeyboardButton("✅ Set New Prefix ✅", callback_data="forceNewPrefix")],
+                        [InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]
+                    ]
+                )
+            )
+    elif "triggerThumbnail" in cb.data:
+        thumbnail = await db.get_thumbnail(cb.from_user.id)
+        if thumbnail is None:
+            await cb.answer("No Thumbnail Found... ", show_alert=True)
+        else:
+            await cb.answer("Trying to send your thumbnail...", show_alert=True)
+            try:
+                await bot.send_photo(
+                    chat_id=cb.message.chat.id,
+                    photo=thumbnail,
+                    text=f"**👆🏻 Your Custom Thumbnail...\n© @AVBotz**",
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🗑️ Delete Thumbnail", callback_data="deleteThumbnail")]])
+                )
+            except Exception as err:
+                try:
+                    await bot.send_message(
+                        chat_id=cb.message.chat.id,
+                        text=f"**😐 Unable to send Thumbnail! Got an unexpected Error**",
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⛔ Close", callback_data="closeMeh")],[InlineKeyboardButton("📮 Report issue", url="https://t.me/AVBotz_Support")]])
+                    )
+                except:
+                    pass
+    elif "deleteThumbnail" in cb.data:
+        await db.set_thumbnail(cb.from_user.id, thumbnail=None)
+        await cb.answer("Successfully Removed Custom Thumbnail!", show_alert=True)
+        await OpenSettings(cb.message, user_id=cb.from_user.id)
+    elif ("triggerCaption" in cb.data) or ("forceChangeCaption" in cb.data):
+        custom_caption_ = await db.get_caption(cb.from_user.id)
+        if custom_caption_ is not None:
+            try:
+                await cb.message.edit(
+                    text=f"**Current Custom Caption:**\n\n`{custom_caption_}`",
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📮 Change Custom Caption 📝", callback_data="forceChangeCaption")]])
+                )
+            except MessageNotModified:
+                pass
+            if "forceChangeCaption" not in cb.data:
+                return
+        elif custom_caption_ is None:
+            await cb.answer("You didn't set any File Caption!", show_alert=True)
+        await cb.message.edit(
+            text="**Send me custom File Caption!**"
+        )
+        try:
+            ask_: Message = await bot.listen(cb.message.chat.id, timeout=300)
+            if ask_.text and (ask_.text.startswith("/") is False):
+                if len(ask_.text) > 1024:
+                    await ask_.reply_text(
+                        "**Make the Caption text Smaller...**",
+                        quote=True,
+                        reply_markup=InlineKeyboardMarkup(
+                            [
+                                [InlineKeyboardButton("👀 Try Again", callback_data="triggerCaption")],
+                                [InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]
+                            ]
+                        )
+                    )
+                    return
+                caption = ask_.text.markdown
+                await ask_.delete(True)
+                await db.set_caption(cb.from_user.id, caption=caption)
+                await cb.message.edit(
+                    "**Custom Caption Removed Successfully!**",
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("⚙ Back To Settings", callback_data="openSettings")],
+                        [InlineKeyboardButton("⛔ Close", callback_data="closeMeh")]
+                    ])
+                )
+            elif ask_.text and (ask_.text.startswith("/") is True):
+                await cb.message.edit(
+                    text="**Process Cancelled!**",
+                    reply_markup=InlineKeyboardMarkup(
+                        [[InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]])
+                )
+        except TimeoutError:
+            await cb.message.edit(
+                text="**🤬 I can't wait more.... BYE 👋🏻**",
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔚 Go Back", callback_data="openSettings")]])
+            )
+
+
+RenameBot.run()
 
 
 
