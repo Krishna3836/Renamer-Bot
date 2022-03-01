@@ -18,21 +18,21 @@ class Config(object):
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
 
-    START_TEXT = """<b>Hey</b> <b>{}</b> 🙋
+    START_TEXT = """Hᴇʏ {} 🙋
 
-<code>I am a TG Renamer bot with permanent thumbnail support.</code>
+I ᴀᴍ ᴀ TG Rᴇɴᴀᴍᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘᴇʀᴍᴀɴᴇɴᴛ ᴛʜᴜᴍʙɴᴀɪʟ sᴜᴘᴘᴏʀᴛ
 
-<b>Press /settings to change my settings ⚙.</b>
+Pʀᴇss /settings ᴛᴏ ᴄʜᴀɴɢᴇ ᴍʏ sᴇᴛᴛɪɴɢs ⚙
 
-📛 For More Details check <b>Help</b>
+📛 Fᴏʀ Mᴏʀᴇ Dᴇᴛᴀɪʟs ᴄʜᴇᴄᴋ Hᴇʟᴘ
 
-<b>Maintained By:</b> <b> [Tellybots](t.me/Tellybots)</b>
+Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ: [Tᴇʟʟʏʙᴏᴛs](t.me/Tellybots)
 """
     PROGRESS = """
-🔰 Speed : {3}/s\n\n
-🌀 Done : {1}\n\n
-🎥 Total size  : {2}\n\n
-⏳ Time Left : {4}\n\n
+🔰 Sᴘᴇᴇᴅ : {3}/s\n\n
+🌀 Dᴏɴᴇ : {1}\n\n
+🎥 Tᴏᴛᴀʟ sɪᴢᴇ  : {2}\n\n
+⏳ Tɪᴍᴇ ʟᴇғᴛ : {4}\n\n
 """
     
     ABOUT_TEXT = """
@@ -56,18 +56,18 @@ class Config(object):
 
 """
 
-    HELP_TEXT = """You need Help ?? 😅
+    HELP_TEXT = """Yᴏᴜ ɴᴇᴇᴅ Hᴇʟᴘ ?? 😅
    
-✵ First go to the /settings and change the bot behavior as your choice.
+✵ Fɪʀsᴛ ɢᴏ ᴛᴏ ᴛʜᴇ /sᴇᴛᴛɪɴɢs ᴀɴᴅ ᴄʜᴀɴɢᴇ ᴛʜᴇ ʙᴏᴛ ʙᴇʜᴀᴠɪᴏʀ ᴀs ʏᴏᴜʀ ᴄʜᴏɪᴄᴇ.
 
-✵ Send me the custom thumbnail to save it permanently. (𝚘𝚙𝚝𝚒𝚘𝚗𝚊𝚕)
+✵ Sᴇɴᴅ ᴍᴇ ᴛʜᴇ ᴄᴜsᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ ᴛᴏ sᴀᴠᴇ ɪᴛ ᴘᴇʀᴍᴀɴᴇɴᴛʟʏ. (𝚘𝚙𝚝𝚒𝚘𝚗𝚊𝚕)
 
-✵ Now send me the file or video which you want to rename.
+✵ Nᴏᴡ sᴇɴᴅ ᴍᴇ ᴛʜᴇ ғɪʟᴇ ᴏʀ ᴠɪᴅᴇᴏ ᴡʜɪᴄʜ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ʀᴇɴᴀᴍᴇ.
 
-✵ After that bot will ask you for the New Name then send the New file name with or without Extention.
+✵ Aғᴛᴇʀ ᴛʜᴀᴛ ʙᴏᴛ ᴡɪʟʟ ᴀsᴋ ʏᴏᴜ ғᴏʀ ᴛʜᴇ Nᴇᴡ Nᴀᴍᴇ ᴛʜᴇɴ sᴇɴᴅ ᴛʜᴇ Nᴇᴡ ғɪʟᴇ ɴᴀᴍᴇ ᴡɪᴛʜ ᴏʀ ᴡɪᴛʜᴏᴜᴛ Exᴛᴇɴᴛɪᴏɴ.
 
-✵ Then be relaxed your file will be uploaded soon..
+✵ Tʜᴇɴ ʙᴇ ʀᴇʟᴀxᴇᴅ ʏᴏᴜʀ ғɪʟᴇ ᴡɪʟʟ ʙᴇ ᴜᴘʟᴏᴀᴅᴇᴅ sᴏᴏɴ..
 
 
-⚠️ Note: If you want to change bot caption Go to /settings >> Custom Caption
+⚠️ Nᴏᴛᴇ: Iғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ᴄʜᴀɴɢᴇ ʙᴏᴛ ᴄᴀᴘᴛɪᴏɴ Gᴏ ᴛᴏ /settings >> Cᴜsᴛᴏᴍ Cᴀᴘᴛɪᴏɴ
 """
