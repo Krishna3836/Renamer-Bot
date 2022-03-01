@@ -20,7 +20,7 @@ class Config(object):
 
     START_TEXT = """<b>Hey</b> <b>{}</b> 🙋
 
-<code>I am a TG Converter bot with permanent thumbnail support.</code>
+<code>I am a TG Renamer bot with permanent thumbnail support.</code>
 
 <b>Press /settings to change my settings ⚙.</b>
 
@@ -46,19 +46,18 @@ class Config(object):
 ©️ Made By @Dkbotz ❤️**
 """
 
-    HELP_TEXT = """**Hello {}, It's too easy to use me..**
- 
-**● Configure the Settings before using me... 
-● Send a photo to set it as your custom thumbnail...
-● Send any File or media you want to rename... 
-● That's it, and rest is mine work...
+    HELP_TEXT = """You need Help ?? 😅
+   
+✵ First go to the /settings and change the bot behavior as your choice.
 
-📝 Available Commands... 
-- /start - Start the Bot
-- /help - This Message
-- /about - About Meh
-- /settings - Configure Settings 
-- /showthumb & /deletethumb - For Thumbnail
+✵ Send me the custom thumbnail to save it permanently. (𝚘𝚙𝚝𝚒𝚘𝚗𝚊𝚕)
 
-© By @Dkbotz ❤️**
+✵ Now send me the file or video which you want to rename.
+
+✵ After that bot will ask you for the New Name then send the New file name with or without Extention.
+
+✵ Then be relaxed your file will be uploaded soon..
+
+
+⚠️ Note: If you want to change bot caption use command /set_caption
 """
