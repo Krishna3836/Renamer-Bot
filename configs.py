@@ -18,15 +18,16 @@ class Config(object):
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
 
-    START_TEXT = """Hᴇʏ {} 🙋
+    START_TEXT = """**Hᴇʏ {} 🙋
 
-I ᴀᴍ ᴀ TG Rᴇɴᴀᴍᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘᴇʀᴍᴀɴᴇɴᴛ ᴛʜᴜᴍʙɴᴀɪʟ sᴜᴘᴘᴏʀᴛ
+I ᴀᴍ ᴀ ᴛɢ ʀᴇɴᴀᴍᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘᴇʀᴍᴀɴᴇɴᴛ ᴛʜᴜᴍʙɴᴀɪʟ sᴜᴘᴘᴏʀᴛ
 
 Pʀᴇss /settings ᴛᴏ ᴄʜᴀɴɢᴇ ᴍʏ sᴇᴛᴛɪɴɢs ⚙
 
-📛 Fᴏʀ Mᴏʀᴇ Dᴇᴛᴀɪʟs ᴄʜᴇᴄᴋ Hᴇʟᴘ
+📛 Fᴏʀ ᴍᴏʀᴇ ᴅᴇᴛᴀɪʟs ᴄʜᴇᴄᴋ ʜᴇʟᴘ
 
-Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ: [Tᴇʟʟʏʙᴏᴛs](t.me/Tellybots)
+Mᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ: [ᴛᴇʟʟʏʙᴏᴛs](t.me/Tellybots)**
+
 """
     PROGRESS = """
 🔰 Sᴘᴇᴇᴅ : {3}/s\n\n
