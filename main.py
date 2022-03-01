@@ -128,9 +128,10 @@ async def rename_handler(bot: Client, event: Message):
             reply_to_message_id=event.message_id
         )
         c_time = time.time()
-        the_real_download_location = await bot.download_media(
-            message=event.reply_to_message,
-            file_name=download_location,
+        try:
+            await bot.download_media(
+            message=event,
+            file_name=new_file_name,
             progress=progress_for_pyrogram,
             progress_args=(
                 Config.DOWNLOAD_START,
@@ -195,7 +196,7 @@ async def rename_handler(bot: Client, event: Message):
             if upload_as_doc is True:
                 await UploadFile(
                     bot,
-                    reply_,
+                    a,
                     file_path=download_location,
                     file_size=media.file_size
                 )
@@ -206,7 +207,7 @@ async def rename_handler(bot: Client, event: Message):
                     title_ = event.audio.title if event.audio.title else None
                     await UploadAudio(
                         bot,
-                        reply_,
+                        a,
                         file_path=download_location,
                         file_size=media.file_size,
                         duration=duration_,
@@ -220,7 +221,7 @@ async def rename_handler(bot: Client, event: Message):
                     height_ = event.video.height if ((event.document is None) and (event.video.thumbs is not None)) else 0
                     await UploadVideo(
                         bot,
-                        reply_,
+                        a,
                         file_path=download_location,
                         file_size=media.file_size,
                         default_thumb=thumb_,
@@ -231,12 +232,12 @@ async def rename_handler(bot: Client, event: Message):
                 else:
                     await UploadFile(
                         bot,
-                        reply_,
+                        a,
                         file_path=download_location,
                         file_size=media.file_size
                     )
             try:
-                os.remove(the_real_download_location)
+                os.remove(download_location)
               #  os.remove(thumb_image_path)
             except:
                 pass
