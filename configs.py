@@ -17,22 +17,9 @@ class Config(object):
     DOWNLOAD_PATH = os.environ.get("DOWNLOAD_PATH", "./downloads")
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
-    START_TEXT = """**Hi {}, I'm a Simple File Renamer Bot with Permanent Thumbnail Support and many extra features! 💯
 
-Also Configure the Settings for best experience...
-Check Below Buttons for more :**
-
-**🤖 Developer : [Anonymous](https://t.me/dkbotzhelp)**
-"""
     PROGRESS = """
-**┈┈••✿ @DkBotz ✿••┈┈
-
-🐌 Speed : {3}/s
-📥 Done : {1}
-📮 Total size  : {2}
-🗑️ Time Left : {4}
-
-✅ Thank You for Using Me..!**"""
+"""
     
     ABOUT_TEXT = """
 **● Developed By : [Anonymous](https://t.me/dkbotzhelp)
