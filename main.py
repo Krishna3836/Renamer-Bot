@@ -36,7 +36,7 @@ START_BUTTONS = InlineKeyboardMarkup(
         InlineKeyboardButton('🌀 ᴀʙᴏᴜᴛ', callback_data='about')
         ],[
         InlineKeyboardButton('💡 ʜᴇʟᴘ', callback_data='help'),
-        InlineKeyboardButton('⚙️ Settings ', callback_data='showSettings')
+        InlineKeyboardButton('⚙️ Settings ', callback_data='openSettings')
         ],[
         InlineKeyboardButton('🗑️ ᴄʟᴏsᴇ', callback_data='close')
         ]]
