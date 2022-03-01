@@ -118,7 +118,8 @@ async def start_handler(bot: Client, event: Message, cb=False):
                  reply_markup=ABOUT_BUTTONS,
                  disable_web_page_preview=True
                      )
-
+@RenameBot.on_message(filters.private & (filters.video | filters.document | filters.audio))
+async def rename_handler(bot: Client, event: Message):
         download_location = Config.DOWNLOAD_LOCATION + "/"
         file_name=download_location
         a = await bot.send_message(
