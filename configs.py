@@ -20,6 +20,7 @@ class Config(object):
     DOWNLOAD_LOCATION = "./DOWNLOADS"
     DOWNLOAD_START ="Processing To Download"
     # Telegram maximum file upload size
+    SAVED_RECVD_DOC_FILE ="Your 🗃️ Saved"
     START_TEXT = """Hey {} 🙋
 
 I am a TG Renamer bot with permanent thumbnail support.
