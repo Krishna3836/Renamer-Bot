@@ -129,19 +129,19 @@ async def rename_handler(bot: Client, event: Message):
         )
         c_time = time.time()
         the_real_download_location = await bot.download_media(
-            message=update.reply_to_message,
+            message=event.reply_to_message,
             file_name=download_location,
             progress=progress_for_pyrogram,
             progress_args=(
-                Translation.DOWNLOAD_START,
+                Config.DOWNLOAD_START,
                 a,
                 c_time
             )
         )
         if the_real_download_location is not None:
             await bot.edit_message_text(
-                text=Translation.SAVED_RECVD_DOC_FILE,
-                chat_id=update.chat.id,
+                text=Config.SAVED_RECVD_DOC_FILE,
+                chat_id=event.chat.id,
                 message_id=a.message_id
             )
             # don't care about the extension
@@ -196,7 +196,7 @@ async def rename_handler(bot: Client, event: Message):
                 await UploadFile(
                     bot,
                     reply_,
-                    file_path=new_file_name,
+                    file_path=download_location,
                     file_size=media.file_size
                 )
             else:
@@ -207,7 +207,7 @@ async def rename_handler(bot: Client, event: Message):
                     await UploadAudio(
                         bot,
                         reply_,
-                        file_path=new_file_name,
+                        file_path=download_location,
                         file_size=media.file_size,
                         duration=duration_,
                         performer=performer_,
@@ -221,7 +221,7 @@ async def rename_handler(bot: Client, event: Message):
                     await UploadVideo(
                         bot,
                         reply_,
-                        file_path=new_file_name,
+                        file_path=download_location,
                         file_size=media.file_size,
                         default_thumb=thumb_,
                         duration=duration_,
@@ -232,12 +232,12 @@ async def rename_handler(bot: Client, event: Message):
                     await UploadFile(
                         bot,
                         reply_,
-                        file_path=new_file_name,
+                        file_path=download_location,
                         file_size=media.file_size
                     )
         except Exception as err:
             try:
-                os.remove(new_file_name)
+                os.remove(download_location)
               #  os.remove(thumb_image_path)
             except:
                 pass
