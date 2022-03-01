@@ -157,7 +157,7 @@ async def rename_handler(bot: Client, event: Message):
                     reply_,
                    
                     file_path=new_file_name,
-                    file_size=media.file_size
+                    file_size=media.file_size,
                     chat_id=event.chat.id,
                 
                     caption=description,              
@@ -201,7 +201,7 @@ async def rename_handler(bot: Client, event: Message):
                         bot,
                         reply_,
                         file_path=new_file_name,
-                        file_size=media.file_size
+                        file_size=media.file_size,
                         chat_id=event.chat.id,
                 
                         caption=description,              
