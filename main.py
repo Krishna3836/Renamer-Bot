@@ -129,8 +129,7 @@ async def start_handler(bot: Client, event: Message, cb=False):
 @RenameBot.on_message(filters.private & (filters.video | filters.document | filters.audio))
 async def rename_handler(bot: Client, event: Message):
         reply_ = await bot.send_message(
-            text=Config.DOWNLOAD_START,
-            reply_to_message_id=Message.event
+            text=Config.DOWNLOAD_START
         )
         c_time = time.time()
         try:
