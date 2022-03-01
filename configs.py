@@ -10,7 +10,7 @@ class Config(object):
     SESSION_NAME = os.environ.get("SESSION_NAME", "Rename-Bot-0")
     SLEEP_TIME = int(os.environ.get("SLEEP_TIME", 5))
     BOT_OWNER = int(os.environ.get("BOT_OWNER", 1445283714))
-    CAPTION = "**© By @Dkbotz ❤️**"
+    CAPTION = "**© By @Tellybots 💕**"
     UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", None)
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", -100))
     MONGODB_URI = os.environ.get("MONGODB_URI", "")
@@ -69,5 +69,5 @@ class Config(object):
 ✵ Then be relaxed your file will be uploaded soon..
 
 
-⚠️ Note: If you want to change bot caption use command /set_caption
+⚠️ Note: If you want to change bot caption Go to /settings >> Custom Caption
 """
