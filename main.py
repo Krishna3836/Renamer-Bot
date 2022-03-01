@@ -192,15 +192,7 @@ async def rename_handler(bot: Client, event: Message):
                     )
 
 
-@RenameBot.on_message(filters.private & filters.photo & ~filters.edited)
-async def photo_handler(bot: Client, event: Message):
-    await AddUserToDatabase(bot, event)
-    FSub = await ForceSub(bot, event)
-    if FSub == 400:
-        return
-    editable = await event.reply_text("Please Wait ...")
-    await db.set_thumbnail(event.from_user.id, thumbnail=event.photo.file_id)
-    await editable.edit("Permanent Custom Thumbnail Saved Successfully!")
+
 
 
 @RenameBot.on_message(filters.private & filters.command(["delete_thumbnail", "delete_thumb", "del_thumb", "delthumb"]) & ~filters.edited)
