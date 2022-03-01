@@ -125,11 +125,6 @@ async def rename_handler(bot: Client, event: Message):
     FSub = await ForceSub(bot, event)
     if FSub == 400:
         return
-    if QueueDB.get(event.from_user.id, None) is None:
-        FormtDB.update({event.from_user.id: media.file_name.rsplit(".", 1)[-1].lower()})
-    if (FormtDB.get(event.from_user.id, None) is not None) and (media.file_name.rsplit(".", 1)[-1].lower() != FormtDB.get(event.from_user.id)):
-        await event.reply_text(f"First you sent a {FormtDB.get(event.from_user.id).upper()} video so now send only that type of video.", quote=True)
-        return
     isInGap, t_ = await CheckTimeGap(user_id=event.from_user.id)
     if (Config.ONE_PROCESS_ONLY is False) and (isInGap is True):
         await event.reply_text(f"Sorry Sir,\nNo Flooding Allowed!\nSend Video After `{str(t_)}s` !!", quote=True)
@@ -137,25 +132,11 @@ async def rename_handler(bot: Client, event: Message):
     elif (Config.ONE_PROCESS_ONLY is True) and (isInGap is True):
         await event.reply_text(f"Sorry Sir,\nNo Flooding Allowed!\n{t_}", quote=True)
         return
-    media = event.video or event.audio or event.document
-    if media and media.file_name:
-        reply_ = await event.reply_text(
-            text=f"**Current File Name:** `{media.file_name}`\n\nSend me New File Name!",
-            quote=True
         )
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
         if os.path.exists(download_location):
             os.makedirs(download_location)
-        try:
-            ask_: Message = await bot.listen(event.chat.id, timeout=300)
-            if ask_.text and (ask_.text.startswith("/") is False):
-                ascii_ = ''.join([i if (i in string.digits or i in string.ascii_letters or i == " ") else "" for i in ask_.text.rsplit('.', 1)[0]])
-                prefix_ = await db.get_prefix(event.from_user.id)
-                new_file_name = f"{download_location}{prefix_ if (prefix_ is not None) else ''}{ascii_.replace(' ', '_')}.{media.file_name.rsplit('.', 1)[-1]}"
-                if len(new_file_name) > 255:
-                    await reply_.edit("Sorry Unkil,\nFile Name length is more than 255 bytes!")
-                    return
-                await ask_.delete(True)
+
                 await reply_.edit("Downloading File ...")
                 await asyncio.sleep(Config.SLEEP_TIME)
                 c_time = time.time()
@@ -335,148 +316,7 @@ async def settings_handler(bot: Client, event: Message):
     await OpenSettings(editable, user_id=event.from_user.id)
 
 
-@RenameBot.on_callback_query()
-async def callback_handlers(bot: Client, cb: CallbackQuery):
-    if "closeMeh" in cb.data:
-        await cb.message.delete(True)
-    elif "openSettings" in cb.data:
-        await OpenSettings(cb.message, user_id=cb.from_user.id)
-    elif "triggerUploadMode" in cb.data:
-        upload_as_doc = await db.get_upload_as_doc(cb.from_user.id)
-        if upload_as_doc is True:
-            await db.set_upload_as_doc(cb.from_user.id, upload_as_doc=False)
-        else:
-            await db.set_upload_as_doc(cb.from_user.id, upload_as_doc=True)
-        await OpenSettings(cb.message, user_id=cb.from_user.id)
-    elif "forceNewPrefix" in cb.data:
-        await cb.message.edit(
-            text="Send me New File Name Prefix!"
-        )
-        try:
-            ask_: Message = await bot.listen(cb.message.chat.id, timeout=300)
-            if ask_.text and (ask_.text.startswith("/") is False):
-                await ask_.delete(True)
-                await SetupPrefix(ask_.text, user_id=cb.from_user.id, editable=cb.message)
-            elif ask_.text and (ask_.text.startswith("/") is True):
-                await cb.message.edit(
-                    text="Current Process Cancelled!",
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
-                )
-        except TimeoutError:
-            await cb.message.edit(
-                text="Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me File Again to Rename.",
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
-            )
-    elif "triggerPrefix" in cb.data:
-        current_prefix = await db.get_prefix(cb.from_user.id)
-        if current_prefix is None:
-            await cb.answer("Currently you didn't set any File Name Prefix!", show_alert=True)
-            await cb.message.edit(
-                text="Send me a File Name Prefix!"
-            )
-            try:
-                ask_: Message = await bot.listen(cb.message.chat.id, timeout=300)
-                if ask_.text and (ask_.text.startswith("/") is False):
-                    await ask_.delete(True)
-                    await SetupPrefix(ask_.text, user_id=cb.from_user.id, editable=cb.message)
-                elif ask_.text and (ask_.text.startswith("/") is True):
-                    await cb.message.edit(
-                        text="Current Process Cancelled!",
-                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
-                    )
-            except TimeoutError:
-                await cb.message.edit(
-                    text="Sorry Unkil,\n5 Minutes Passed! I can't wait more.",
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
-                )
-        else:
-            await cb.message.edit(
-                text=f"**Current Prefix:** `{current_prefix}`",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [InlineKeyboardButton("Set New Prefix", callback_data="forceNewPrefix")],
-                        [InlineKeyboardButton("Go Back", callback_data="openSettings")]
-                    ]
-                )
-            )
-    elif "triggerThumbnail" in cb.data:
-        thumbnail = await db.get_thumbnail(cb.from_user.id)
-        if thumbnail is None:
-            await cb.answer("No Thumbnail Found in Database!\nSend a Thumbnail to Save.", show_alert=True)
-        else:
-            await cb.answer("Thumbnail Found in Database!\nTrying to Send Thumbnail.", show_alert=True)
-            try:
-                await bot.send_photo(
-                    chat_id=cb.message.chat.id,
-                    photo=thumbnail,
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Delete Thumbnail", callback_data="deleteThumbnail")]])
-                )
-            except Exception as err:
-                try:
-                    await bot.send_message(
-                        chat_id=cb.message.chat.id,
-                        text=f"Unable to send Thumbnail!\n\n**Error:** `{err}`",
-                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("❎ Close ❎", callback_data="closeMeh")]])
-                    )
-                except:
-                    pass
-    elif "deleteThumbnail" in cb.data:
-        await db.set_thumbnail(cb.from_user.id, thumbnail=None)
-        await cb.answer("Successfully Removed Custom Thumbnail!", show_alert=True)
-        await OpenSettings(cb.message, user_id=cb.from_user.id)
-    elif ("triggerCaption" in cb.data) or ("forceChangeCaption" in cb.data):
-        custom_caption_ = await db.get_caption(cb.from_user.id)
-        if custom_caption_ is not None:
-            try:
-                await cb.message.edit(
-                    text=f"**Current Custom Caption:**\n\n`{custom_caption_}`",
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Change Custom Caption", callback_data="forceChangeCaption")]])
-                )
-            except MessageNotModified:
-                pass
-            if "forceChangeCaption" not in cb.data:
-                return
-        elif custom_caption_ is None:
-            await cb.answer("Currently you didn't set any File Caption!", show_alert=True)
-        await cb.message.edit(
-            text="Send me File Caption!"
-        )
-        try:
-            ask_: Message = await bot.listen(cb.message.chat.id, timeout=300)
-            if ask_.text and (ask_.text.startswith("/") is False):
-                if len(ask_.text) > 1024:
-                    await ask_.reply_text(
-                        "Sorry Unkil,\nCaption Text length is more than 1024 bytes!",
-                        quote=True,
-                        reply_markup=InlineKeyboardMarkup(
-                            [
-                                [InlineKeyboardButton("Try Again", callback_data="triggerCaption")],
-                                [InlineKeyboardButton("Go Back", callback_data="openSettings")]
-                            ]
-                        )
-                    )
-                    return
-                caption = ask_.text.markdown
-                await ask_.delete(True)
-                await db.set_caption(cb.from_user.id, caption=caption)
-                await cb.message.edit(
-                    "Custom Caption Removed Successfully!",
-                    reply_markup=InlineKeyboardMarkup([
-                        [InlineKeyboardButton("Go To Settings", callback_data="openSettings")],
-                        [InlineKeyboardButton("Close", callback_data="closeMeh")]
-                    ])
-                )
-            elif ask_.text and (ask_.text.startswith("/") is True):
-                await cb.message.edit(
-                    text="Current Process Cancelled!",
-                    reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
-                )
-        except TimeoutError:
-            await cb.message.edit(
-                text="Sorry Unkil,\n5 Minutes Passed! I can't wait more.",
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
-            )
+
 
 
 RenameBot.run()
