@@ -130,11 +130,7 @@ async def start_handler(bot: Client, event: Message, cb=False):
 async def rename_handler(bot: Client, event: Message):
         download_location = Config.DOWNLOAD_LOCATION + "/"
         file_name=download_location
-        a = await bot.send_message(
-            chat_id=event.chat.id,
-            text=f"Processing Please Wait",
-            reply_to_message_id=event.message_id
-        )
+        await reply_.edit("**📥 Trying to Download...**")
         c_time = time.time()
         try:
             await bot.download_media(
@@ -143,7 +139,7 @@ async def rename_handler(bot: Client, event: Message):
                 progress=progress_for_pyrogram,
                 progress_args=(
                     "Downloading File ...",
-                    a,
+                    reply_,
                     c_time
                 )
             )
@@ -153,7 +149,7 @@ async def rename_handler(bot: Client, event: Message):
             if upload_as_doc is True:
                 await UploadFile(
                     bot,
-                    a,
+                    reply_,
                     file_path=new_file_name,
                     file_size=media.file_size
                 )
@@ -164,7 +160,7 @@ async def rename_handler(bot: Client, event: Message):
                     title_ = event.audio.title if event.audio.title else None
                     await UploadAudio(
                         bot,
-                        a,
+                        reply_,
                         file_path=new_file_name,
                         file_size=media.file_size,
                         duration=duration_,
@@ -178,7 +174,7 @@ async def rename_handler(bot: Client, event: Message):
                     height_ = event.video.height if ((event.document is None) and (event.video.thumbs is not None)) else 0
                     await UploadVideo(
                         bot,
-                        a,
+                        reply_,
                         file_path=new_file_name,
                         file_size=media.file_size,
                         default_thumb=thumb_,
@@ -189,16 +185,11 @@ async def rename_handler(bot: Client, event: Message):
                 else:
                     await UploadFile(
                         bot,
-                        a,
+                        reply_,
                         file_path=new_file_name,
                         file_size=media.file_size
                     )
-        except Exception as err:
-            try:
-                os.remove(new_file_name)
-              #  os.remove(thumb_image_path)
-            except:
-                pass
+
 
 @RenameBot.on_message(filters.private & filters.photo & ~filters.edited)
 async def photo_handler(bot: Client, event: Message):
