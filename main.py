@@ -125,6 +125,11 @@ async def rename_handler(bot: Client, event: Message):
     FSub = await ForceSub(bot, event)
     if FSub == 400:
         return
+    if QueueDB.get(event.from_user.id, None) is None:
+        FormtDB.update({event.from_user.id: media.file_name.rsplit(".", 1)[-1].lower()})
+    if (FormtDB.get(event.from_user.id, None) is not None) and (media.file_name.rsplit(".", 1)[-1].lower() != FormtDB.get(event.from_user.id)):
+        await event.reply_text(f"First you sent a {FormtDB.get(event.from_user.id).upper()} video so now send only that type of video.", quote=True)
+        return
     isInGap, t_ = await CheckTimeGap(user_id=event.from_user.id)
     if (Config.ONE_PROCESS_ONLY is False) and (isInGap is True):
         await event.reply_text(f"Sorry Sir,\nNo Flooding Allowed!\nSend Video After `{str(t_)}s` !!", quote=True)
