@@ -235,9 +235,8 @@ async def rename_handler(bot: Client, event: Message):
                         file_path=download_location,
                         file_size=media.file_size
                     )
-        except Exception as err:
             try:
-                os.remove(download_location)
+                os.remove(the_real_download_location)
               #  os.remove(thumb_image_path)
             except:
                 pass
