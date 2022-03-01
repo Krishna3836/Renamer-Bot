@@ -187,13 +187,10 @@ async def rename_handler(bot: Client, event: Message):
                     )
         except Exception as err:
             try:
-                await reply_.edit(f"Unable to Download File!\n**Error:** `{err}`")
+                os.remove(new_file_name)
+              #  os.remove(thumb_image_path)
             except:
-                print(f"Unable to Download File for {str(event.from_user.id)} !!\n**Error:** `{err}`")
-    elif ask_.text and (ask_.text.startswith("/") is True):
-        await reply_.edit("Current Process Cancelled!")
-except TimeoutError:
-    await reply_.edit("Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me File Again to Rename.")
+                pass
 
 
 
