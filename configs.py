@@ -18,7 +18,21 @@ class Config(object):
     BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
     ONE_PROCESS_ONLY = bool(os.environ.get("ONE_PROCESS_ONLY", False))
 
+    START_TEXT = """<b>Hey</b> <b>{}</b> 🙋
+
+<code>I am a TG Converter bot with permanent thumbnail support.</code>
+
+<b>Press /settings to change my settings ⚙.</b>
+
+📛 For More Details check <b>Help</b>
+
+<b>Maintained By:</b> <b> [Tellybots](t.me/Tellybots)</b>
+"""
     PROGRESS = """
+🔰 Speed : {3}/s\n\n
+🌀 Done : {1}\n\n
+🎥 Total size  : {2}\n\n
+⏳ Time Left : {4}\n\n
 """
     
     ABOUT_TEXT = """
