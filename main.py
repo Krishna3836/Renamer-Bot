@@ -124,7 +124,7 @@ async def rename_handler(bot: Client, event: Message):
         file_name=download_location
         a = await bot.send_message(
             chat_id=update.chat.id,
-            text=Translation.DOWNLOAD_START,
+            text=f"Downloading Please Wait",
             reply_to_message_id=update.message_id
         )
         c_time = time.time()
