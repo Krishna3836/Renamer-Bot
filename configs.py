@@ -35,15 +35,25 @@ class Config(object):
 ⏳ Time Left : {4}\n\n
 """
     
-    ABOUT_TEXT = """
-**● Developed By : [Anonymous](https://t.me/dkbotzhelp)
-● Updates Channel : [Dkbotz](https://t.me/dkbotz)
-● Support : [DkBotz Support](https://t.me/dk_botz)
-● Language : [Python 3](https://www.python.org)
-● Library : [Pyrogram](https://docs.pyrogram.org)
-● Server : [Heroku](https://heroku.com)
+    ABOUT_TEXT = = """
+**Mʏ ɴᴀᴍᴇ** : [Renamer ʙᴏᴛ](http://t.me/MediaRenamerBot)
 
-©️ Made By @Dkbotz ❤️**
+**Cʜᴀɴɴᴇʟ** : [Tᴇʟʟʏʙᴏᴛs](https://t.me/TellyBots)
+
+**Vᴇʀꜱɪᴏɴ** : [2.0 ʙᴇᴛᴀ](https://t.me/TellyUploaderRobot)
+
+**Sᴏᴜʀᴄᴇ** : [ᴄʟɪᴄᴋ ʜᴇʀᴇ](https://t.me/tellybots_digital)
+
+**Sᴇʀᴠᴇʀ** : [ʜᴇʀᴏᴋᴜ](https://heroku.com/)
+
+**Lᴀɴɢᴜᴀɢᴇ :** [Pʏᴛʜᴏɴ 3.10.2](https://www.python.org/)
+
+**Fʀᴀᴍᴇᴡᴏʀᴋ :** [ᴘʏʀᴏɢᴀᴍ 1.3.6](https://docs.pyrogram.org/)
+
+**Dᴇᴠᴇʟᴏᴘᴇʀ :** [Tᴇʟʟʏʙᴏᴛs](https://t.me/tellybots)
+
+**Pᴏᴡᴇʀᴇᴅ ʙʏ :** [NᴀʏsᴀBᴏᴛs](https://t.me/NaysaBots)
+
 """
 
     HELP_TEXT = """You need Help ?? 😅
