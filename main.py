@@ -135,7 +135,75 @@ async def rename_handler(bot: Client, event: Message):
         download_location = f"{Config.DOWNLOAD_PATH}/{str(event.from_user.id)}/{str(time.time())}/"
         if os.path.exists(download_location):
             os.makedirs(download_location)
-
+                await reply_.edit("Downloading File ...")
+                await asyncio.sleep(Config.SLEEP_TIME)
+                c_time = time.time()
+                try:
+                    await bot.download_media(
+                        message=event,
+                        file_name=new_file_name,
+                        progress=progress_for_pyrogram,
+                        progress_args=(
+                            "Downloading File ...",
+                            reply_,
+                            c_time
+                        )
+                    )
+                    await asyncio.sleep(Config.SLEEP_TIME)
+                    await reply_.edit("Uploading File ...")
+                    upload_as_doc = await db.get_upload_as_doc(event.from_user.id)
+                    if upload_as_doc is True:
+                        await UploadFile(
+                            bot,
+                            reply_,
+                            file_path=new_file_name,
+                            file_size=media.file_size
+                        )
+                    else:
+                        if event.audio:
+                            duration_ = event.audio.duration if event.audio.duration else 0
+                            performer_ = event.audio.performer if event.audio.performer else None
+                            title_ = event.audio.title if event.audio.title else None
+                            await UploadAudio(
+                                bot,
+                                reply_,
+                                file_path=new_file_name,
+                                file_size=media.file_size,
+                                duration=duration_,
+                                performer=performer_,
+                                title=title_
+                            )
+                        elif event.video or (event.document and event.document.mime_type.startswith("video/")):
+                            thumb_ = event.video.thumbs[0] if ((event.document is None) and (event.video.thumbs is not None)) else None
+                            duration_ = event.video.duration if ((event.document is None) and (event.video.thumbs is not None)) else 0
+                            width_ = event.video.width if ((event.document is None) and (event.video.thumbs is not None)) else 0
+                            height_ = event.video.height if ((event.document is None) and (event.video.thumbs is not None)) else 0
+                            await UploadVideo(
+                                bot,
+                                reply_,
+                                file_path=new_file_name,
+                                file_size=media.file_size,
+                                default_thumb=thumb_,
+                                duration=duration_,
+                                width=width_,
+                                height=height_
+                            )
+                        else:
+                            await UploadFile(
+                                bot,
+                                reply_,
+                                file_path=new_file_name,
+                                file_size=media.file_size
+                            )
+                except Exception as err:
+                    try:
+                        await reply_.edit(f"Unable to Download File!\n**Error:** `{err}`")
+                    except:
+                        print(f"Unable to Download File for {str(event.from_user.id)} !!\n**Error:** `{err}`")
+            elif ask_.text and (ask_.text.startswith("/") is True):
+                await reply_.edit("Current Process Cancelled!")
+        except TimeoutError:
+            await reply_.edit("Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me File Again to Rename.")
 
 
 
