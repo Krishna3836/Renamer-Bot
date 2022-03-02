@@ -86,7 +86,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             Image.open(video_thumbnail).convert("RGB").save(video_thumbnail)
             img = Image.open(video_thumbnail)
             img.resize((width, height))
-            img.save(video_thumbnail)
+            img.save(video_thumbnail, "JPEG")
         elif default_thumb is not None:
             video_thumbnail = await bot.download_media(
                 message=default_thumb.file_id,
@@ -95,7 +95,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             Image.open(video_thumbnail).convert("RGB").save(video_thumbnail)
             img = Image.open(video_thumbnail)
             img.resize((width, height))
-            img.save(video_thumbnail, "JPEG")
+            img.save(video_thumbnail)
         else:
             video_thumbnail = Config.DOWNLOAD_PATH + "/" + str(message.chat.id) + "/thumbnail/" + str(time.time()) + ".jpg"
             ttl = random.randint(0, int(duration) - 1)
@@ -181,7 +181,7 @@ async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, 
             Image.open(file_thumbnail).convert("RGB").save(file_thumbnail)
             img = Image.open(file_thumbnail)
             img.resize((100, 100))
-            img.save(file_thumbnail, "JPEG")
+            img.save(file_thumbnail)
         c_time = time.time()
         sent_ = await bot.send_audio(
             chat_id=message.chat.id,
