@@ -29,7 +29,7 @@ Press /settings to change my settings ⚙
 
 📛 For More Details check Help
 
-Maintained By:  [Tellybots](t.me/Tellybots)
+Maintained By :- [Tellybots](t.me/Tellybots)
 
 """
     PROGRESS = """
