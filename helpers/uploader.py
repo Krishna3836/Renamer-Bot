@@ -77,27 +77,15 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             width = metadata.get("width")
         if ((height == 0) or (height == 100)) and metadata.has("height"):
             height = metadata.get("height")
-        db_thumbnail = await db.get_thumbnail(message.chat.id)
+        db_thumbnail = await db.get_thumbnail(cb.from_user.id)
         if db_thumbnail is not None:
-            video_thumbnail = await bot.download_media(
-                message=db_thumbnail,
-                file_name=f"{Config.DOWNLOAD_PATH}/{str(message.chat.id)}/thumbnail/"
-            )
+            video_thumbnail = await bot.download_media(message=db_thumbnail, file_name=f"{Config.DOWN_PATH}/{str(cb.from_user.id)}/thumbnail/")
             Image.open(video_thumbnail).convert("RGB").save(video_thumbnail)
             img = Image.open(video_thumbnail)
             img.resize((width, height))
-            img.save(video_thumbnail)
-        elif default_thumb is not None:
-            video_thumbnail = await bot.download_media(
-                message=default_thumb.file_id,
-                file_name=f"{Config.DOWNLOAD_PATH}/{str(message.chat.id)}/thumbnail/"
-            )
-            Image.open(video_thumbnail).convert("RGB").save(video_thumbnail)
-            img = Image.open(video_thumbnail)
-            img.resize((width, height))
-            img.save(video_thumbnail)
+            img.save(video_thumbnail, "JPEG")
         else:
-            video_thumbnail = Config.DOWNLOAD_PATH + "/" + str(message.chat.id) + "/thumbnail/" + str(time.time()) + ".jpg"
+            video_thumbnail = Config.DOWN_PATH + "/" + str(cb.from_user.id) + "/" + str(time.time()) + ".jpg"
             ttl = random.randint(0, int(duration) - 1)
             file_generator_command = [
                 "ffmpeg",
@@ -117,15 +105,101 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             stdout, stderr = await process.communicate()
             e_response = stderr.decode().strip()
             t_response = stdout.decode().strip()
-            print(t_response)
-            print(e_response)
-            if os.path.lexists(video_thumbnail):
+            if video_thumbnail is None:
+                video_thumbnail = None
+            else:
                 Image.open(video_thumbnail).convert("RGB").save(video_thumbnail)
                 img = Image.open(video_thumbnail)
                 img.resize((width, height))
-                img.save(video_thumbnail)
+                img.save(video_thumbnail, "JPEG")
+        await UploadVideo(
+            bot=bot,
+            cb=cb,
+            merged_vid_path=file_path,
+            width=width,
+            height=height,
+            duration=duration,
+            video_thumbnail=video_thumbnail,
+            file_size=os.path.getsize(merged_vid_path)
+        )
+        caption = f"© @{(await bot.get_me()).username}"
+        if (await db.get_generate_ss(cb.from_user.id)) is True:
+            await cb.message.edit("Now Generating Screenshots ...")
+            generate_ss_dir = f"{Config.DOWN_PATH}/{str(cb.from_user.id)}"
+            list_images = await generate_screen_shots(merged_vid_path, generate_ss_dir, 9, duration)
+            if list_images is None:
+                await cb.message.edit("Failed to get Screenshots!")
+                await asyncio.sleep(Config.TIME_GAP)
             else:
-                vid
+                await cb.message.edit("Generated Screenshots Successfully!\nNow Uploading ...")
+                photo_album = list()
+                if list_images is not None:
+                    i = 0
+                    for image in list_images:
+                        if os.path.exists(str(image)):
+                            if i == 0:
+                                photo_album.append(InputMediaPhoto(media=str(image), caption=caption))
+                            else:
+                                photo_album.append(InputMediaPhoto(media=str(image)))
+                            i += 1
+                await bot.send_media_group(
+                    chat_id=cb.from_user.id,
+                    media=photo_album
+                )
+        if ((await db.get_generate_sample_video(cb.from_user.id)) is True) and (duration >= 15):
+            await cb.message.edit("Now Generating Sample Video ...")
+            sample_vid_dir = f"{Config.DOWN_PATH}/{cb.from_user.id}/"
+            ttl = int(duration*10 / 100)
+            sample_video = await cult_small_video(
+                video_file=merged_vid_path,
+                output_directory=sample_vid_dir,
+                start_time=ttl,
+                end_time=(ttl + 10),
+                format_=FormtDB.get(cb.from_user.id)
+            )
+            if sample_video is None:
+                await cb.message.edit("Failed to Generate Sample Video!")
+                await asyncio.sleep(Config.TIME_GAP)
+            else:
+                await cb.message.edit("Successfully Generated Sample Video!\nNow Uploading ...")
+                sam_vid_duration = 5
+                sam_vid_width = 100
+                sam_vid_height = 100
+                try:
+                    metadata = extractMetadata(createParser(sample_video))
+                    if metadata.has("duration"):
+                        sam_vid_duration = metadata.get('duration').seconds
+                    if metadata.has("width"):
+                        sam_vid_width = metadata.get("width")
+                    if metadata.has("height"):
+                        sam_vid_height = metadata.get("height")
+                except:
+                    await cb.message.edit("Sample Video File Corrupted!")
+                    await asyncio.sleep(Config.TIME_GAP)
+                try:
+                    c_time = time.time()
+                    await bot.send_video(
+                        chat_id=cb.message.chat.id,
+                        video=sample_video,
+                        thumb=video_thumbnail,
+                        width=sam_vid_width,
+                        height=sam_vid_height,
+                        duration=sam_vid_duration,
+                        caption=caption,
+                        progress=progress_for_pyrogram,
+                        progress_args=(
+                            "Uploading Sample Video ...",
+                            cb.message,
+                            c_time,
+                        )
+                    )
+                except Exception as sam_vid_err:
+                    print(f"Got Error While Trying to Upload Sample File:\n{sam_vid_err}")
+                    try:
+                        await cb.message.edit("Failed to Upload Sample Video!")
+                        await asyncio.sleep(Config.TIME_GAP)
+                    except:
+                        pass
 
 async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, duration: int, title: str, performer: str):
     try:
