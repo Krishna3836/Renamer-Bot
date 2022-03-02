@@ -7,3 +7,4 @@ Pillow
 hachoir
 pyromod
 psutil
+humanfriendly
