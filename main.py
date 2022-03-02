@@ -19,10 +19,10 @@ from helpers.forcesub import ForceSub
 from helpers.check_gap import CheckTimeGap
 from helpers.setup_prefix import SetupPrefix
 from helpers.broadcast import broadcast_handler
-from helpers.uploader import UploadVideo, UploadAudio
+from helpers.uploader import UploadVideo, UploadAudio, UploadFile
 from helpers.database.add_user import AddUserToDatabase
 from helpers.display_progress import progress_for_pyrogram, humanbytes
-from helpers.uploader import UploadVideo as UploadFile
+
 
 RenameBot = Client(
     session_name=Config.SESSION_NAME,
