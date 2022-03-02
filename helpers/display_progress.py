@@ -34,14 +34,16 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
             await message.edit(
                 text="⛕ {}\n\n**{}**".format(
                     ud_type,
-                    tmp
-                ),
-                parse_mode='markdown'
-            )
+                    tmp,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("Close", url="https://t.me/AVBotz/5")]
+                    [ 
+                        InlineKeyboardButton('❌ Cancel ❌', callback_data='fuckingdo') # Nice Call 🤭
+                    ]
                 ]
+            )
+                ),
+                parse_mode='markdown'
             )
         except:
             pass
