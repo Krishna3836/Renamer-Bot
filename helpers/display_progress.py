@@ -30,6 +30,11 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
             humanbytes(speed),
             estimated_total_time if estimated_total_time != '' else "0 s" + "**"
         )
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [InlineKeyboardButton("Close", url="https://t.me/AVBotz/5")]
+                ]
+            )
         try:
             await message.edit(
                 text="⛕ {}\n\n**{}**".format(
