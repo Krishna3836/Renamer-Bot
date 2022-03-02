@@ -125,48 +125,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
                 img.resize((width, height))
                 img.save(video_thumbnail)
             else:
-                video_thumbnail = None
-        caption_ = await db.get_caption(message.chat.id)
-        c_time = time.time()
-        sent_ = await bot.send_video(
-            chat_id=message.chat.id,
-            video=file_path,
-            progress=progress_for_pyrogram,
-            progress_args=(
-                "**📤 Uploading Video...**",
-                message,
-                c_time
-            ),
-            duration=duration,
-            thumb=video_thumbnail,
-            width=width,
-            height=height,
-            caption=((f"**{file_path.rsplit('/', 1)[-1]}**\n\n{Config.CAPTION}") if (caption_ is None) else caption_),
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [InlineKeyboardButton("👀 More Amazing Botz 🤖", url="https://t.me/AVBotz/5")]
-                ]
-            )
-        )
-        await asyncio.sleep(Config.SLEEP_TIME)
-        forward_ = await sent_.forward(chat_id=Config.LOG_CHANNEL)
-        await forward_.reply_text(
-            text=f"**User: [{message.chat.first_name}](tg://user?id={str(message.chat.id)})\nUsername: {message.chat.username}**",
-            disable_web_page_preview=True,
-            quote=True
-        )
-    except Exception as err:
-        try:
-            await message.edit(f"**Failed To Upload, Contact [Here](https://t.me/AVBotz_Support)**")
-            await asyncio.sleep(50)
-        except:
-            print(f"**😐 Failed to Upload File!\nError: {err}**")
-    await delete_one(file_path)
-    if Config.ONE_PROCESS_ONLY:
-        await CheckTimeGap(message.chat.id, rm_gap=True)
-    await delete_all(root=Config.DOWNLOAD_PATH + "/" + str(message.chat.id) + "/thumbnail/")
-    await message.delete(True)
-
+                vid
 
 async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, duration: int, title: str, performer: str):
     try:
