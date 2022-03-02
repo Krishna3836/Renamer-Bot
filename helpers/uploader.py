@@ -193,13 +193,16 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
                             c_time,
                         )
                     )
-                except Exception as sam_vid_err:
-                    print(f"Got Error While Trying to Upload Sample File:\n{sam_vid_err}")
-                    try:
-                        await cb.message.edit("Failed to Upload Sample Video!")
-                        await asyncio.sleep(Config.TIME_GAP)
-                    except:
-                        pass
+                    except Exception as err:
+        try:
+            await message.edit(f"**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
+            await asyncio.sleep(50)
+        except:
+            print(f"**Failed to Upload File!\nError: {err}**")
+    await delete_one(file_path)
+    if Config.ONE_PROCESS_ONLY:
+        await CheckTimeGap(message.chat.id, rm_gap=True)
+    await message.delete(True)
 
 async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, duration: int, title: str, performer: str):
     try:
