@@ -13,7 +13,10 @@ from helpers.check_gap import CheckTimeGap
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
 from pyrogram import Client
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, Thumbnail
+
+from humanfriendly import format_timespan
+
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 async def UploadVideo(bot: Client, cb: CallbackQuery, file_path: str, width, height, duration, video_thumbnail, file_size):
     try:
