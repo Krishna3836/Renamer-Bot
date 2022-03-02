@@ -10,7 +10,7 @@ class Config(object):
     SESSION_NAME = os.environ.get("SESSION_NAME", "Rename-Bot-0")
     SLEEP_TIME = int(os.environ.get("SLEEP_TIME", 5))
     BOT_OWNER = int(os.environ.get("BOT_OWNER", 1445283714))
-    CAPTION = "**© By @Tellybots 💕**"
+    CAPTION = "**Thanks For Using Me/n/nMade By @Tellybots 💕**"
     UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", None)
     LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", -100))
     MONGODB_URI = os.environ.get("MONGODB_URI", "")
@@ -23,9 +23,9 @@ class Config(object):
     SAVED_RECVD_DOC_FILE ="Your 🗃️ Saved"
     START_TEXT = """Hey {} 🙋
 
-I am a TG Renamer bot with permanent thumbnail support.
+I am a TG Renamer bot with permanent thumbnail support
 
-Press /settings to change my settings ⚙.
+Press /settings to change my settings ⚙
 
 📛 For More Details check Help
 
