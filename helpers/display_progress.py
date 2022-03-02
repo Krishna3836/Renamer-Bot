@@ -38,6 +38,11 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
                 ),
                 parse_mode='markdown'
             )
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [InlineKeyboardButton("Close", url="https://t.me/AVBotz/5")]
+                ]
+            )
         except:
             pass
 
