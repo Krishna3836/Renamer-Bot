@@ -155,11 +155,18 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             disable_web_page_preview=True,
             quote=True
         )
+    except Exception as err:
+        try:
+            await message.edit("**Something Went Wrong... Contact [Here](https://t.me/AVBotz_Support)**")
+            await asyncio.sleep(50)
+            raise err
+        except:
+            print(f"**😐 Failed to Upload File!\nError: {err}**")
     await delete_one(file_path)
     if Config.ONE_PROCESS_ONLY:
         await CheckTimeGap(message.chat.id, rm_gap=True)
-    await delete_all(root=Config.DOWNLOAD_PATH + "/" + str(message.chat.id) + "/thumbnail/")
     await message.delete(True)
+
 
 
 async def UploadAudio(bot: Client, message: Message, file_path: str, file_size, duration: int, title: str, performer: str):
