@@ -44,7 +44,7 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
                      )
 
                 ),
-                parse_mode='markdown'
+                parse_mode='markdown',
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [ 
