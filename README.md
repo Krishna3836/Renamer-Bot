@@ -1,4 +1,4 @@
-# Rename-Bot
+# Rename-Bot-Pro
 This is a very simple Telegram Files Rename Bot by [@AbirHasan2005](https://t.me/AbirHasan2005).
 
 ## Features
