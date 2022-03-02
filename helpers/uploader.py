@@ -16,7 +16,7 @@ from pyrogram import Client
 
 from humanfriendly import format_timespan
 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 
 async def UploadVideo(bot: Client, cb: CallbackQuery, file_path: str, width, height, duration, video_thumbnail, file_size):
     try:
