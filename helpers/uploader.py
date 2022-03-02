@@ -86,7 +86,7 @@ async def UploadVideo(bot: Client, message: Message, file_path: str, file_size, 
             Image.open(video_thumbnail).convert("RGB").save(video_thumbnail)
             img = Image.open(video_thumbnail)
             img.resize((width, height))
-            img.save(video_thumbnail, "JPEG")
+            img.save(video_thumbnail)
         elif default_thumb is not None:
             video_thumbnail = await bot.download_media(
                 message=default_thumb.file_id,
