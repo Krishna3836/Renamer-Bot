@@ -16,9 +16,9 @@ from pyrogram import Client
 
 from humanfriendly import format_timespan
 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message, Thumbnail
 
-async def UploadVideo(bot: Client, cb: CallbackQuery, file_path: str, width, height, duration, video_thumbnail, file_size, default_thumb: Thumbnail = video_thumbnail):
+async def UploadVideo(bot: Client, cb: CallbackQuery, file_path: str, width, height, duration, video_thumbnail, file_size, default_thumb: Thumbnail = None):
     try:
         sent_ = None
         if (await db.get_upload_as_doc(cb.from_user.id)) is False:
